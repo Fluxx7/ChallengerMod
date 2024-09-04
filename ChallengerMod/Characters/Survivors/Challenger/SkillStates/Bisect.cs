@@ -1,4 +1,5 @@
 ﻿ using ChallengerMod.Modules.BaseStates;
+using EntityStates;
 using RoR2;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
             hitboxGroupName = "SwordGroup";
 
             damageType = DamageType.Generic;
-            damageCoefficient = ChallengerStaticValues.swordDamageCoefficient;
+            damageCoefficient = ChallengerStaticValues.bisectDamageCoefficient;
             procCoefficient = 1f;
             pushForce = 300f;
             bonusForce = Vector3.zero;

@@ -7,7 +7,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
 {
     public class Disect : BaseSkillState
     {
-        public static float damageCoefficient = ChallengerStaticValues.gunDamageCoefficient;
+        public static float damageCoefficient = ChallengerStaticValues.disectDamageCoefficient;
         public static float procCoefficient = 1f;
         public static float baseDuration = 0.6f;
         //delay on firing is usually ass-feeling. only set this if you know what you're doing

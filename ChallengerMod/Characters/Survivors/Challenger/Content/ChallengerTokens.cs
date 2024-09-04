@@ -20,18 +20,18 @@ namespace ChallengerMod.Survivors.Challenger
         {
             string prefix = ChallengerSurvivor.CHALLENGER_PREFIX;
 
-            string desc = "Henry is a skilled fighter who makes use of a wide arsenal of weaponry to take down his foes.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine
-             + "< ! > Sword is a good all-rounder while Boxing Gloves are better for laying a beatdown on more powerful foes." + Environment.NewLine + Environment.NewLine
-             + "< ! > Pistol is a powerful anti air, with its low cooldown and high damage." + Environment.NewLine + Environment.NewLine
-             + "< ! > Roll has a lingering armor buff that helps to use it aggressively." + Environment.NewLine + Environment.NewLine
-             + "< ! > Bomb can be used to wipe crowds with ease." + Environment.NewLine + Environment.NewLine;
+            string desc = "Challenger is an aggressive survivor focused on extreme damage output<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine
+             + "< ! > Running out of energy? Health increases the maximum amount, attack speed increases the recharge speed, and critical strike chance lowers the energy consumption of attacks" + Environment.NewLine + Environment.NewLine
+             + "< ! > Disect slashes more times the more current health you have compared to the enemy, so it works well on small or low health enemies. Ignite is better for tanky enemies, but it has a small area of effect so don't use it for crowds" + Environment.NewLine + Environment.NewLine
+             + "< ! > Overclocked Disect creates a structure to attack everything in a radius around it. Hit the structure with Ignite to blow up the entire area!" + Environment.NewLine + Environment.NewLine
+             + "< ! > Overclocked Bisect takes a while to use, so only use it when you aren't in immediate danger" + Environment.NewLine + Environment.NewLine;
 
-            string outro = "..and so he left, searching for a new identity.";
+            string outro = "..and so he left, seeking for a stronger opponent.";
             string outroFailure = "..and so he vanished, forever a blank slate.";
 
-            Language.Add(prefix + "NAME", "Henry");
+            Language.Add(prefix + "NAME", "Challenger");
             Language.Add(prefix + "DESCRIPTION", desc);
-            Language.Add(prefix + "SUBTITLE", "The Chosen One");
+            Language.Add(prefix + "SUBTITLE", "The Forsaken");
             Language.Add(prefix + "LORE", "sample lore");
             Language.Add(prefix + "OUTRO_FLAVOR", outro);
             Language.Add(prefix + "OUTRO_FAILURE", outroFailure);
@@ -41,33 +41,55 @@ namespace ChallengerMod.Survivors.Challenger
             #endregion
 
             #region Passive
-            Language.Add(prefix + "PASSIVE_NAME", "Henry passive");
-            Language.Add(prefix + "PASSIVE_DESCRIPTION", "Sample text.");
+            Language.Add(prefix + "PASSIVE_NAME", "Battery");
+            Language.Add(prefix + "PASSIVE_DESCRIPTION", "Challenger's attacks consume energy, which recharges over time. <style=cIsDamage>Challenger's attacks cannot critically strike</style>");
             #endregion
 
             #region Primary
-            Language.Add(prefix + "PRIMARY_SLASH_NAME", "Sword");
-            Language.Add(prefix + "PRIMARY_SLASH_DESCRIPTION", Tokens.agilePrefix + $"Swing forward for <style=cIsDamage>{100f * ChallengerStaticValues.swordDamageCoefficient}% damage</style>.");
+            Language.Add(prefix + "PRIMARY_BISECT_NAME", "Bisect");
+            Language.Add(prefix + "PRIMARY_BISECT_DESCRIPTION", $"Fire a slash of energy through the air for <style=cIsDamage>{100f * ChallengerStaticValues.bisectDamageCoefficient}% damage</style>");
             #endregion
 
             #region Secondary
-            Language.Add(prefix + "SECONDARY_GUN_NAME", "Handgun");
-            Language.Add(prefix + "SECONDARY_GUN_DESCRIPTION", Tokens.agilePrefix + $"Fire a handgun for <style=cIsDamage>{100f * ChallengerStaticValues.gunDamageCoefficient}% damage</style>.");
+            Language.Add(prefix + "SECONDARY_DISECT_NAME", "Disect");
+            Language.Add(prefix + "SECONDARY_DISECT_DESCRIPTION", Tokens.agilePrefix + $"Target a nearby enemy, slashing them repeatedly for <style=cIsDamage>{100f * ChallengerStaticValues.disectDamageCoefficient}% damage</style>.");
             #endregion
 
             #region Utility
-            Language.Add(prefix + "UTILITY_ROLL_NAME", "Roll");
-            Language.Add(prefix + "UTILITY_ROLL_DESCRIPTION", "Roll a short distance, gaining <style=cIsUtility>300 armor</style>. <style=cIsUtility>You cannot be hit during the roll.</style>");
+            Language.Add(prefix + "UTILITY_IGNITE_NAME", "Incinerate");
+            Language.Add(prefix + "UTILITY_IGNITE_DESCRIPTION", Tokens.ignitePrefix + $"Charge and fire a bolt of flame, dealing <style=cIsDamage>{100f * ChallengerStaticValues.igniteDamageCoefficient}% damage</style>");
             #endregion
 
             #region Special
-            Language.Add(prefix + "SPECIAL_BOMB_NAME", "Bomb");
-            Language.Add(prefix + "SPECIAL_BOMB_DESCRIPTION", $"Throw a bomb for <style=cIsDamage>{100f * ChallengerStaticValues.bombDamageCoefficient}% damage</style>.");
+            Language.Add(prefix + "SPECIAL_OVERCLOCK_NAME", "Overclock");
+            Language.Add(prefix + "SPECIAL_OVERCLOCK_DESCRIPTION", "Overclock your next ability, changing the effects but consuming more energy.");
+            #endregion
+
+            #region Overclock
+            #region Primary
+            Language.Add(prefix + "PRIMARY_OVERCLOCK_BISECT_NAME", "Overclocked Bisect");
+            Language.Add(prefix + "PRIMARY_OVERCLOCK_BISECT_DESCRIPTION", $"Calibrate your sensors, then unleash a large slash in a targeted area, dealing <style=cIsDamage>{100f * ChallengerStaticValues.overBisectDamageCoefficient}% damage and bypassing armor</style>");
+            #endregion
+
+            #region Secondary
+            Language.Add(prefix + "SECONDARY_OVERCLOCK_DISECT_NAME", "Overclocked Disect");
+            Language.Add(prefix + "SECONDARY_OVERCLOCK_DISECT_DESCRIPTION", $"Charge to designate a region around you. All enemies in this region will continuously be hit by Disect. Once this ability ends, your weapons overheat and <style=cIsDamage>attacks can't be used for {ChallengerStaticValues.overDisectCooldown} seconds</style>");
+            #endregion
+
+            #region Utility
+            Language.Add(prefix + "UTILITY_REMEDIATE_NAME", "Remediate");
+            Language.Add(prefix + "UTILITY_REMEDIATE_DESCRIPTION", Tokens.ignitePrefix + $"Activate your repair systems, gaining armor and healing rapidly");
+            #endregion
+
+            #region Special
+            Language.Add(prefix + "SPECIAL_UNDERCLOCK_NAME", "Cancel Overclock");
+            Language.Add(prefix + "SPECIAL_UNDERCLOCK_DESCRIPTION", "Switch back to your normal moves");
+            #endregion
             #endregion
 
             #region Achievements
-            Language.Add(Tokens.GetAchievementNameToken(ChallengerMasteryAchievement.identifier), "Henry: Mastery");
-            Language.Add(Tokens.GetAchievementDescriptionToken(ChallengerMasteryAchievement.identifier), "As Henry, beat the game or obliterate on Monsoon.");
+            Language.Add(Tokens.GetAchievementNameToken(ChallengerMasteryAchievement.identifier), "Challenger: Mastery");
+            Language.Add(Tokens.GetAchievementDescriptionToken(ChallengerMasteryAchievement.identifier), "As Challenger, beat the game or obliterate on Monsoon.");
             #endregion
         }
     }

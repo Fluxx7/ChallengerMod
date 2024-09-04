@@ -10,7 +10,7 @@ namespace ChallengerMod.Survivors.Challenger
 
             Modules.Content.AddEntityState(typeof(Disect));
 
-            Modules.Content.AddEntityState(typeof(Roll));
+            Modules.Content.AddEntityState(typeof(Overclock));
 
             Modules.Content.AddEntityState(typeof(Ignite));
         }

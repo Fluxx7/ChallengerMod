@@ -17,14 +17,9 @@ namespace ChallengerMod
     [BepInPlugin(MODUID, MODNAME, MODVERSION)]
     public class ChallengerPlugin : BaseUnityPlugin
     {
-        // if you do not change this, you are giving permission to deprecate the mod-
-        //  please change the names to your own stuff, thanks
-        //   this shouldn't even have to be said
         public const string MODUID = "com.fluxxi.challengermod";
         public const string MODNAME = "ChallengerMod";
         public const string MODVERSION = "0.0.1";
-
-        // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
         public const string DEVELOPER_PREFIX = "FLUXXI";
 
         public static ChallengerPlugin instance;
