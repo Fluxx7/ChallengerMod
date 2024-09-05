@@ -62,7 +62,7 @@ namespace ChallengerMod.Survivors.Challenger
 
             #region Special
             Language.Add(prefix + "SPECIAL_OVERCLOCK_NAME", "Overclock");
-            Language.Add(prefix + "SPECIAL_OVERCLOCK_DESCRIPTION", "Overclock your next ability, changing the effects but consuming more energy.");
+            Language.Add(prefix + "SPECIAL_OVERCLOCK_DESCRIPTION", Tokens.agilePrefix + "Overclock your next ability, changing the effects but consuming more energy.");
             #endregion
 
             #region Overclock
@@ -78,12 +78,12 @@ namespace ChallengerMod.Survivors.Challenger
 
             #region Utility
             Language.Add(prefix + "UTILITY_REMEDIATE_NAME", "Remediate");
-            Language.Add(prefix + "UTILITY_REMEDIATE_DESCRIPTION", Tokens.ignitePrefix + $"Activate your repair systems, gaining armor and healing rapidly");
+            Language.Add(prefix + "UTILITY_REMEDIATE_DESCRIPTION", Tokens.agilePrefix + $"Activate your repair systems, gaining armor and healing rapidly");
             #endregion
 
             #region Special
             Language.Add(prefix + "SPECIAL_UNDERCLOCK_NAME", "Cancel Overclock");
-            Language.Add(prefix + "SPECIAL_UNDERCLOCK_DESCRIPTION", "Switch back to your normal moves");
+            Language.Add(prefix + "SPECIAL_UNDERCLOCK_DESCRIPTION", Tokens.agilePrefix + "Switch back to your normal moves");
             #endregion
             #endregion
 

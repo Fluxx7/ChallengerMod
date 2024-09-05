@@ -55,10 +55,10 @@ namespace ChallengerMod.Survivors.Challenger
             new_state = 1;
             if (caller.isAuthority && caller.skillLocator)
             {
-                caller.skillLocator.primary.SetSkillOverride(gameObject, ChallengerSurvivor.primaryOverclockSkillDef, GenericSkill.SkillOverridePriority.Contextual);
-                caller.skillLocator.secondary.SetSkillOverride(gameObject, ChallengerSurvivor.secondaryOverclockSkillDef, GenericSkill.SkillOverridePriority.Contextual);
-                caller.skillLocator.utility.SetSkillOverride(gameObject, ChallengerSurvivor.utilityOverclockSkillDef, GenericSkill.SkillOverridePriority.Contextual);
-                caller.skillLocator.special.SetSkillOverride(gameObject, ChallengerSurvivor.specialOverclockSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+                caller.skillLocator.primary = caller.skillLocator.FindSkill("OverclockPrimary");
+                caller.skillLocator.secondary = caller.skillLocator.FindSkill("OverclockSecondary");
+                caller.skillLocator.utility = caller.skillLocator.FindSkill("OverclockUtility");
+                caller.skillLocator.special = caller.skillLocator.FindSkill("OverclockSpecial");
             }
         }
         public static void EndOverclock(BaseSkillState caller, GameObject gameObject)
@@ -66,10 +66,10 @@ namespace ChallengerMod.Survivors.Challenger
             new_state = 0;
             if (caller.isAuthority && caller.skillLocator)
             {
-                caller.skillLocator.primary.UnsetSkillOverride(gameObject, ChallengerSurvivor.primaryOverclockSkillDef, GenericSkill.SkillOverridePriority.Contextual);
-                caller.skillLocator.secondary.UnsetSkillOverride(gameObject, ChallengerSurvivor.secondaryOverclockSkillDef, GenericSkill.SkillOverridePriority.Contextual);
-                caller.skillLocator.utility.UnsetSkillOverride(gameObject, ChallengerSurvivor.utilityOverclockSkillDef, GenericSkill.SkillOverridePriority.Contextual);
-                caller.skillLocator.special.UnsetSkillOverride(gameObject, ChallengerSurvivor.specialOverclockSkillDef, GenericSkill.SkillOverridePriority.Contextual);
+                caller.skillLocator.primary = caller.skillLocator.FindSkill("Primary");
+                caller.skillLocator.secondary = caller.skillLocator.FindSkill("Secondary");
+                caller.skillLocator.utility = caller.skillLocator.FindSkill("Utility");
+                caller.skillLocator.special = caller.skillLocator.FindSkill("Special");
             }
         }
     }

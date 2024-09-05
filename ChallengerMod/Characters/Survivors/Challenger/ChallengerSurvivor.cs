@@ -151,6 +151,7 @@ namespace ChallengerMod.Survivors.Challenger
 
             Prefabs.AddEntityStateMachine(bodyPrefab, "Weapon");
             Prefabs.AddEntityStateMachine(bodyPrefab, "Weapon2");
+            Prefabs.AddEntityStateMachine(bodyPrefab, "Repair Systems");
         }
 
         #region skills
@@ -233,11 +234,14 @@ namespace ChallengerMod.Survivors.Challenger
                     assetBundle.LoadAsset<Sprite>("texPrimaryIcon"),
                     new EntityStates.SerializableEntityStateType(typeof(SkillStates.Bisect)),
                     "Weapon",
-                    true
+                    false
                 ));
             //custom Skilldefs can have additional fields that you can set manually
             primarySkillDef1.stepCount = 3;
             primarySkillDef1.stepGraceDuration = 0.5f;
+            Skills.AddPrimarySkills(bodyPrefab, primarySkillDef1);
+            // implementing Overclocked primary using new genericskill and skillfamily
+            GenericSkill overclockPrimaryGenSkill = Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, "OverclockPrimary", true);
             primaryOverclockSkillDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = "ChallengerOverclockBisect",
@@ -260,7 +264,7 @@ namespace ChallengerMod.Survivors.Challenger
                 fullRestockOnAssign = true,
                 dontAllowPastMaxStocks = false,
                 mustKeyPress = false,
-                beginSkillCooldownOnSkillEnd = false,
+                beginSkillCooldownOnSkillEnd = true,
 
                 isCombatSkill = true,
                 canceledFromSprinting = true,
@@ -268,8 +272,7 @@ namespace ChallengerMod.Survivors.Challenger
                 forceSprintDuringState = false,
 
             });
-
-        Skills.AddPrimarySkills(bodyPrefab, primarySkillDef1);
+            Skills.AddSkillsToFamily(overclockPrimaryGenSkill.skillFamily, primaryOverclockSkillDef);
         }
 
         private void AddSecondarySkills()
@@ -286,7 +289,7 @@ namespace ChallengerMod.Survivors.Challenger
                 skillIcon = assetBundle.LoadAsset<Sprite>("texSecondaryIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Disect)),
-                activationStateMachineName = "Weapon2",
+                activationStateMachineName = "Weapon",
                 interruptPriority = EntityStates.InterruptPriority.Skill,
 
                 baseRechargeInterval = 3f,
@@ -307,7 +310,9 @@ namespace ChallengerMod.Survivors.Challenger
                 cancelSprintingOnActivation = false,
                 forceSprintDuringState = false,
 
-            }); 
+            });
+            Skills.AddSecondarySkills(bodyPrefab, secondarySkillDef1);
+            GenericSkill overclockSecondGenSkill = Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, "OverclockSecondary", true);
             secondaryOverclockSkillDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = "ChallengerOverclockDisect",
@@ -316,7 +321,7 @@ namespace ChallengerMod.Survivors.Challenger
                 skillIcon = assetBundle.LoadAsset<Sprite>("texSecondaryIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.OverclockDisect)),
-                activationStateMachineName = "Weapon2",
+                activationStateMachineName = "Weapon",
                 interruptPriority = EntityStates.InterruptPriority.Skill,
 
                 baseRechargeInterval = 30f,
@@ -330,7 +335,7 @@ namespace ChallengerMod.Survivors.Challenger
                 fullRestockOnAssign = true,
                 dontAllowPastMaxStocks = false,
                 mustKeyPress = false,
-                beginSkillCooldownOnSkillEnd = false,
+                beginSkillCooldownOnSkillEnd = true,
 
                 isCombatSkill = true,
                 canceledFromSprinting = true,
@@ -338,8 +343,8 @@ namespace ChallengerMod.Survivors.Challenger
                 forceSprintDuringState = false,
 
             });
+            Skills.AddSkillsToFamily(overclockSecondGenSkill.skillFamily, secondaryOverclockSkillDef);
 
-            Skills.AddSecondarySkills(bodyPrefab, secondarySkillDef1);
         }
 
         private void AddUtiitySkills()
@@ -352,10 +357,11 @@ namespace ChallengerMod.Survivors.Challenger
                 skillName = "ChallengerIgnite",
                 skillNameToken = CHALLENGER_PREFIX + "UTILITY_IGNITE_NAME",
                 skillDescriptionToken = CHALLENGER_PREFIX + "UTILITY_IGNITE_DESCRIPTION",
+                keywordTokens = new string[] { "KEYWORD_IGNITE" },
                 skillIcon = assetBundle.LoadAsset<Sprite>("texUtilityIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(Ignite)),
-                activationStateMachineName = "Weapon3",
+                activationStateMachineName = "Weapon2",
                 interruptPriority = EntityStates.InterruptPriority.PrioritySkill,
 
                 baseRechargeInterval = 13f,
@@ -368,23 +374,27 @@ namespace ChallengerMod.Survivors.Challenger
                 resetCooldownTimerOnUse = false,
                 fullRestockOnAssign = true,
                 dontAllowPastMaxStocks = false,
-                mustKeyPress = false,
-                beginSkillCooldownOnSkillEnd = false,
+                mustKeyPress = true,
+                beginSkillCooldownOnSkillEnd = true,
 
                 isCombatSkill = true,
                 canceledFromSprinting = true,
                 cancelSprintingOnActivation = true,
                 forceSprintDuringState = false,
             });
+            Skills.AddUtilitySkills(bodyPrefab, utilitySkillDef1);
+
+            GenericSkill overclockUtilGenSkill = Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, "OverclockUtility", true);
             utilityOverclockSkillDef = Skills.CreateSkillDef(new SkillDefInfo
             {
                 skillName = "ChallengerRemediate",
                 skillNameToken = CHALLENGER_PREFIX + "UTILITY_REMEDIATE_NAME",
                 skillDescriptionToken = CHALLENGER_PREFIX + "UTILITY_REMEDIATE_DESCRIPTION",
+                keywordTokens = new string[] { "KEYWORD_AGILE" },
                 skillIcon = assetBundle.LoadAsset<Sprite>("texUtilityIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(Remediate)),
-                activationStateMachineName = "Body",
+                activationStateMachineName = "Repair Systems",
                 interruptPriority = EntityStates.InterruptPriority.PrioritySkill,
 
                 baseRechargeInterval = 0f,
@@ -405,8 +415,8 @@ namespace ChallengerMod.Survivors.Challenger
                 cancelSprintingOnActivation = false,
                 forceSprintDuringState = false,
             });
+            Skills.AddSkillsToFamily(overclockUtilGenSkill.skillFamily, utilityOverclockSkillDef);
 
-            Skills.AddUtilitySkills(bodyPrefab, utilitySkillDef1);
         }
 
         private void AddSpecialSkills()
@@ -419,26 +429,10 @@ namespace ChallengerMod.Survivors.Challenger
                 skillName = "ChallengerOverclock",
                 skillNameToken = CHALLENGER_PREFIX + "SPECIAL_OVERCLOCK_NAME",
                 skillDescriptionToken = CHALLENGER_PREFIX + "SPECIAL_OVERCLOCK_DESCRIPTION",
+                keywordTokens = new string[] { "KEYWORD_AGILE" },
                 skillIcon = assetBundle.LoadAsset<Sprite>("texSpecialIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Overclock)),
-                activationStateMachineName = "Body", interruptPriority = EntityStates.InterruptPriority.Skill,
-
-                baseMaxStock = 1,
-                baseRechargeInterval = 0f,
-
-                isCombatSkill = false,
-                mustKeyPress = false,
-            });
-            specialOverclockSkillDef = Skills.CreateSkillDef(new SkillDefInfo
-            {
-                skillName = "ChallengerUnderclock",
-                skillNameToken = CHALLENGER_PREFIX + "SPECIAL_UNDERCLOCK_NAME",
-                skillDescriptionToken = CHALLENGER_PREFIX + "SPECIAL_UNDERCLOCK_DESCRIPTION",
-                skillIcon = assetBundle.LoadAsset<Sprite>("texSpecialIcon"),
-
-                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Underclock)),
-                //setting this to the "weapon2" EntityStateMachine allows us to cast this skill at the same time primary, which is set to the "weapon" EntityStateMachine
                 activationStateMachineName = "Body",
                 interruptPriority = EntityStates.InterruptPriority.Skill,
 
@@ -446,10 +440,37 @@ namespace ChallengerMod.Survivors.Challenger
                 baseRechargeInterval = 0f,
 
                 isCombatSkill = false,
-                mustKeyPress = false,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                canceledFromSprinting =false,
             });
-
             Skills.AddSpecialSkills(bodyPrefab, specialSkillDef1);
+
+
+            GenericSkill overclockSpecialGenSkill = Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, "OverclockSpecial", true);
+            specialOverclockSkillDef = Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = "ChallengerUnderclock",
+                skillNameToken = CHALLENGER_PREFIX + "SPECIAL_UNDERCLOCK_NAME",
+                skillDescriptionToken = CHALLENGER_PREFIX + "SPECIAL_UNDERCLOCK_DESCRIPTION",
+                keywordTokens = new string[] { "KEYWORD_AGILE" },
+                skillIcon = assetBundle.LoadAsset<Sprite>("texSpecialIcon"),
+
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Underclock)),
+                
+                activationStateMachineName = "Body",
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+
+                baseMaxStock = 1,
+                baseRechargeInterval = 0f,
+
+                isCombatSkill = false,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = false,
+                canceledFromSprinting = false,
+            });
+            Skills.AddSkillsToFamily(overclockSpecialGenSkill.skillFamily, specialOverclockSkillDef);
+
         }
         #endregion skills
         
@@ -551,7 +572,11 @@ namespace ChallengerMod.Survivors.Challenger
             if (sender.HasBuff(ChallengerBuffs.armorBuff))
             {
                 args.armorAdd += 300;
+                args.regenMultAdd += 9;
+                args.moveSpeedReductionMultAdd += 0.25f;
             }
         }
+
+        
     }
 }

@@ -41,6 +41,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
 
         public override void FixedUpdate()
         {
+            outer.SetNextStateToMain();
             base.FixedUpdate();
         }
 
