@@ -7,20 +7,19 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
 {
     public class Remediate : BaseSkillState
     {
-        public static float baseDuration = 10f;
 
-        private float duration;
 
         public override void OnEnter()
         {
             base.OnEnter();
             ChallengerOverclockController.EndOverclock(this, gameObject);
-            duration = baseDuration / attackSpeedStat;
+            ChallengerEnergyController.AddEnergyDrain(ChallengerStaticValues.remediateEnergyCostPerSec);
             characterBody.AddBuff(ChallengerBuffs.armorBuff);
         }
 
         public override void OnExit()
         {
+            ChallengerEnergyController.RemoveEnergyDrain(ChallengerStaticValues.remediateEnergyCostPerSec);
             characterBody.RemoveBuff(ChallengerBuffs.armorBuff);
             base.OnExit();
         }
@@ -28,12 +27,11 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-
-            if (fixedAge >= duration && isAuthority)
-            {
+            if (!ChallengerEnergyController.CheckEnergy(ChallengerStaticValues.remediateEnergyCostPerSec/60)){
                 outer.SetNextStateToMain();
                 return;
             }
+            
         }
 
         

@@ -20,6 +20,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         private float duration;
         private float fireTime;
         private bool hasFired;
+        private bool canFire;
         private string muzzleString;
 
         public override void OnEnter()
@@ -28,10 +29,14 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
             ChallengerOverclockController.EndOverclock(this, gameObject);
             duration = baseDuration / attackSpeedStat;
             fireTime = firePercentTime * duration;
-            characterBody.SetAimTimer(2f);
-            muzzleString = "Muzzle";
+            canFire = ChallengerEnergyController.UseEnergy(ChallengerStaticValues.overBisectEnergyCost);
+            if (canFire)
+            {
+                characterBody.SetAimTimer(2f);
+                muzzleString = "Muzzle";
 
-            PlayAnimation("LeftArm, Override", "ShootGun", "ShootGun.playbackRate", 1.8f);
+                PlayAnimation("LeftArm, Override", "ShootGun", "ShootGun.playbackRate", 1.8f);
+            }
         }
 
         public override void OnExit()
@@ -42,7 +47,11 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-
+            if (!canFire) {
+                skillLocator.FindSkill("OverclockBisect").AddOneStock();
+                outer.SetNextStateToMain();
+                return;
+            }
             if (fixedAge >= fireTime)
             {
                 Fire();

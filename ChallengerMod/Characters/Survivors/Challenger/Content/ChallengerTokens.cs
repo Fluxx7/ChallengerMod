@@ -57,7 +57,7 @@ namespace ChallengerMod.Survivors.Challenger
 
             #region Utility
             Language.Add(prefix + "UTILITY_IGNITE_NAME", "Incinerate");
-            Language.Add(prefix + "UTILITY_IGNITE_DESCRIPTION", Tokens.ignitePrefix + $"Charge and fire a bolt of flame, dealing <style=cIsDamage>{100f * ChallengerStaticValues.igniteDamageCoefficient}% damage</style>");
+            Language.Add(prefix + "UTILITY_IGNITE_DESCRIPTION", Tokens.ignitePrefix + $"Charge and fire a bolt of flame, dealing <style=cIsDamage>{100f * ChallengerStaticValues.igniteBaseDamageCoefficient}% to {100f * ChallengerStaticValues.igniteBaseDamageCoefficient * ChallengerStaticValues.igniteChargeMultiplier}% damage</style> based off charge time");
             #endregion
 
             #region Special

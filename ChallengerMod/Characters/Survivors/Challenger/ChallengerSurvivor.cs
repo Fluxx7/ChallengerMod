@@ -26,7 +26,7 @@ namespace ChallengerMod.Survivors.Challenger
         public override string bodyName => "ChallengerBody"; //if you do not change this, you get the point by now
 
         //name of the ai master for vengeance and goobo. must be unique
-        public override string masterName => "HenryMonsterMaster"; //if you do not
+        public override string masterName => "ChallengerMonsterMaster"; //if you do not
 
         //the names of the prefabs you set up in unity that we will use to build your character
         public override string modelPrefabName => "mdlHenry";
@@ -106,6 +106,8 @@ namespace ChallengerMod.Survivors.Challenger
             base.InitializeCharacter();
             bodyPrefab.AddComponent<ChallengerEnergyController>();
             bodyPrefab.AddComponent<ChallengerOverclockController>();
+            bodyPrefab.AddComponent<ChallengerOverlayController>();
+
 
             ChallengerConfig.Init();
             ChallengerStates.Init();
@@ -231,7 +233,7 @@ namespace ChallengerMod.Survivors.Challenger
                     "ChallengerBisect",
                     CHALLENGER_PREFIX + "PRIMARY_BISECT_NAME",
                     CHALLENGER_PREFIX + "PRIMARY_BISECT_DESCRIPTION",
-                    assetBundle.LoadAsset<Sprite>("texPrimaryIcon"),
+                    assetBundle.LoadAsset<Sprite>("texBisectIcon"),
                     new EntityStates.SerializableEntityStateType(typeof(SkillStates.Bisect)),
                     "Weapon",
                     false
@@ -286,7 +288,7 @@ namespace ChallengerMod.Survivors.Challenger
                 skillNameToken = CHALLENGER_PREFIX + "SECONDARY_DISECT_NAME",
                 skillDescriptionToken = CHALLENGER_PREFIX + "SECONDARY_DISECT_DESCRIPTION",
                 keywordTokens = new string[] { "KEYWORD_AGILE" },
-                skillIcon = assetBundle.LoadAsset<Sprite>("texSecondaryIcon"),
+                skillIcon = assetBundle.LoadAsset<Sprite>("texDisectIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Disect)),
                 activationStateMachineName = "Weapon",
@@ -358,7 +360,7 @@ namespace ChallengerMod.Survivors.Challenger
                 skillNameToken = CHALLENGER_PREFIX + "UTILITY_IGNITE_NAME",
                 skillDescriptionToken = CHALLENGER_PREFIX + "UTILITY_IGNITE_DESCRIPTION",
                 keywordTokens = new string[] { "KEYWORD_IGNITE" },
-                skillIcon = assetBundle.LoadAsset<Sprite>("texUtilityIcon"),
+                skillIcon = assetBundle.LoadAsset<Sprite>("texBazookaFireIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(Ignite)),
                 activationStateMachineName = "Weapon2",
@@ -454,7 +456,7 @@ namespace ChallengerMod.Survivors.Challenger
                 skillNameToken = CHALLENGER_PREFIX + "SPECIAL_UNDERCLOCK_NAME",
                 skillDescriptionToken = CHALLENGER_PREFIX + "SPECIAL_UNDERCLOCK_DESCRIPTION",
                 keywordTokens = new string[] { "KEYWORD_AGILE" },
-                skillIcon = assetBundle.LoadAsset<Sprite>("texSpecialIcon"),
+                skillIcon = assetBundle.LoadAsset<Sprite>("texBazookaOutIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Underclock)),
                 
@@ -574,6 +576,10 @@ namespace ChallengerMod.Survivors.Challenger
                 args.armorAdd += 300;
                 args.regenMultAdd += 9;
                 args.moveSpeedReductionMultAdd += 0.25f;
+            }
+            if (sender.HasBuff(ChallengerBuffs.disectDebuff))
+            {
+                
             }
         }
 

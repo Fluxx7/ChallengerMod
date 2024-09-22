@@ -20,17 +20,23 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         private float duration;
         private float fireTime;
         private bool hasFired;
+        private bool canFire;
         private string muzzleString;
 
         public override void OnEnter()
         {
             base.OnEnter();
             duration = baseDuration / attackSpeedStat;
+            canFire = ChallengerEnergyController.UseEnergy(ChallengerStaticValues.disectEnergyCost);
             fireTime = firePercentTime * duration;
-            characterBody.SetAimTimer(2f);
-            muzzleString = "Muzzle";
+            if (canFire)
+            {
+                characterBody.SetAimTimer(2f);
+                muzzleString = "Muzzle";
 
-            PlayAnimation("LeftArm, Override", "ShootGun", "ShootGun.playbackRate", 1.8f);
+                PlayAnimation("LeftArm, Override", "ShootGun", "ShootGun.playbackRate", 1.8f);
+            }
+            
         }
 
         public override void OnExit()
@@ -41,7 +47,10 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-
+            if (!canFire) {
+                outer.SetNextStateToMain();
+                return;
+            }
             if (fixedAge >= fireTime)
             {
                 Fire();

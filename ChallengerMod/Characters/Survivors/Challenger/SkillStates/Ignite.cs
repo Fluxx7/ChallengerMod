@@ -13,29 +13,34 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         public static float BaseDelayDuration = 0.0f;
 
         public static float DamageCoefficient = 16f;
+        private bool canFire;
 
         public override void OnEnter()
         {
-            projectilePrefab = ChallengerAssets.bombProjectilePrefab;
-            //base.effectPrefab = Modules.Assets.SomeMuzzleEffect;
-            //targetmuzzle = "muzzleThrow"
+            canFire = ChallengerEnergyController.UseEnergy(ChallengerStaticValues.igniteEnergyCost);
+            if (canFire)
+            {
+                projectilePrefab = ChallengerAssets.bombProjectilePrefab;
+                //base.effectPrefab = Modules.Assets.SomeMuzzleEffect;
+                //targetmuzzle = "muzzleThrow"
 
-            attackSoundString = "HenryBombThrow";
+                attackSoundString = "HenryBombThrow";
 
-            baseDuration = BaseDuration;
-            baseDelayBeforeFiringProjectile = BaseDelayDuration;
+                baseDuration = BaseDuration;
+                baseDelayBeforeFiringProjectile = BaseDelayDuration;
 
-            damageCoefficient = DamageCoefficient;
-            //proc coefficient is set on the components of the projectile prefab
-            force = 80f;
+                damageCoefficient = DamageCoefficient;
+                //proc coefficient is set on the components of the projectile prefab
+                force = 80f;
 
-            //base.projectilePitchBonus = 0;
-            //base.minSpread = 0;
-            //base.maxSpread = 0;
+                //base.projectilePitchBonus = 0;
+                //base.minSpread = 0;
+                //base.maxSpread = 0;
 
-            recoilAmplitude = 0.1f;
-            bloom = 10;
+                recoilAmplitude = 0.1f;
+                bloom = 10;
 
+            }
             base.OnEnter();
         }
 

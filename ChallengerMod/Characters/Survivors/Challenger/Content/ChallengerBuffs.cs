@@ -1,5 +1,9 @@
 ﻿using RoR2;
+using R2API;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using System;
 
 namespace ChallengerMod.Survivors.Challenger
 {
@@ -21,7 +25,21 @@ namespace ChallengerMod.Survivors.Challenger
                 Color.white,
                 true,
                 true);
+            AddDoTs();
+        }
 
+        private static void AddDoTs() {
+            var poisonDef = new DotController.DotDef
+            {
+                interval = 0.1f,
+                damageCoefficient = AssassinStaticValues.poisonDOTDamageCoef,
+                damageColorIndex = DamageColorIndex.Poison,
+                associatedBuff = poisonDebuff,
+                terminalTimedBuffDuration = 10f,
+                resetTimerOnAdd = true
+            };
+
+            poisonDoT = DotAPI.RegisterDotDef(poisonDef);
         }
     }
 }

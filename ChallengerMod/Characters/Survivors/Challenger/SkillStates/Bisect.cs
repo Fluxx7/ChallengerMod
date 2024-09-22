@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.Networking;
 using static UnityEngine.ParticleSystem.PlaybackState;
+using RoR2.Projectile;
 
 namespace ChallengerMod.Survivors.Challenger.SkillStates
 {
@@ -22,7 +23,6 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         protected float damageCoefficient = ChallengerStaticValues.bisectDamageCoefficient;
         protected float procCoefficient = 1f;
         protected float pushForce = 300f;
-        protected Vector3 bonusForce = Vector3.zero;
         protected float baseDuration = 2f;
 
         protected float attackStartPercentTime = 0.2f;
@@ -32,7 +32,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
 
         protected float attackRecoil = 0.75f;
         private float range = 256f;
-        private float force = 800f;
+        private float force = 200f;
 
         protected float hitHopVelocity = 4f;
 
@@ -41,11 +41,13 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         protected string muzzleString = "SwingCenter";
         protected string playbackRateParam = "Slash.playbackRate";
         protected GameObject swingEffectPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/Tracers/TracerGoldGat");
+        protected GameObject slashPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/Tracers/TracerGoldGat");
         protected GameObject hitEffectPrefab;
         protected NetworkSoundEventIndex impactSound = NetworkSoundEventIndex.Invalid;
 
         public float duration;
         private bool hasFired;
+        private bool canFire;
         protected bool inHitPause;
         private bool hasHopped;
         protected float stopwatch;
@@ -55,11 +57,14 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         {
             base.OnEnter();
             duration = baseDuration / attackSpeedStat;
+            canFire = ChallengerEnergyController.UseEnergy(ChallengerStaticValues.bisectEnergyCost);
             animator = GetModelAnimator();
-            StartAimMode(0.5f + duration, false);
+            if (canFire)
+            {
+                StartAimMode(0.5f + duration, false);
 
-            PlayAttackAnimation();
-
+                PlayAttackAnimation();
+            }
             
         }
 
@@ -82,6 +87,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         {
             if (isAuthority)
             {
+
                 Ray aimRay = GetAimRay();
                 new BulletAttack
                 {
@@ -107,13 +113,13 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
                     sniper = false,
                     stopperMask = LayerIndex.CommonMasks.bullet,
                     weapon = null,
-                    tracerEffectPrefab = swingEffectPrefab,
+                    tracerEffectPrefab = slashPrefab,
                     spreadPitchScale = 1f,
                     spreadYawScale = 1f,
                     queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
                     hitEffectPrefab = EntityStates.Commando.CommandoWeapon.FirePistol2.hitEffectPrefab,
                 }.Fire();
-                hasFired = true;
+                //ProjectileManager.FireProjectile(this.slashPrefab, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), base.gameObject, this.damageCoefficient * this.damageStat, force, false, DamageColorIndex.Default, null, -1f);
             }
         }
 
@@ -133,6 +139,11 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
+
+            if (!canFire) {
+                outer.SetNextStateToMain();
+                return;
+            }
 
             stopwatch += Time.deltaTime;
 

@@ -22,32 +22,8 @@ namespace ChallengerMod.Survivors.Challenger
     {
         private static int state = 0;
         private static int new_state = 0;
-        public void Awake() 
-        {
-        }
-        //public void FixedUpdate()
+        //public void Awake() 
         //{
-        //    if (new_state != state) {
-        //        switch (state) {
-        //            case 0:
-        //                Upclock();
-        //                break;
-        //            case 1:
-        //                Downclock();
-        //                break;
-        //        }
-                
-        //    }
-        //}
-        //private void Upclock()
-        //{
-
-        //}
-
-        
-        //private void Downclock()
-        //{
-            
         //}
 
         public static void StartOverclock(BaseSkillState caller, GameObject gameObject)
