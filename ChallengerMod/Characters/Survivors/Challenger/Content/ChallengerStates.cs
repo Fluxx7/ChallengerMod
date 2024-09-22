@@ -23,5 +23,4 @@ namespace ChallengerMod.Survivors.Challenger
             Modules.Content.AddEntityState(typeof(Underclock));
         }
     }
-    }
 }

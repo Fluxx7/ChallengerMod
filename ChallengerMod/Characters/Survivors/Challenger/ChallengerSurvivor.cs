@@ -153,6 +153,7 @@ namespace ChallengerMod.Survivors.Challenger
 
             Prefabs.AddEntityStateMachine(bodyPrefab, "Weapon");
             Prefabs.AddEntityStateMachine(bodyPrefab, "Weapon2");
+            Prefabs.AddEntityStateMachine(bodyPrefab, "Body2");
             Prefabs.AddEntityStateMachine(bodyPrefab, "Repair Systems");
         }
 
@@ -435,7 +436,7 @@ namespace ChallengerMod.Survivors.Challenger
                 skillIcon = assetBundle.LoadAsset<Sprite>("texSpecialIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Overclock)),
-                activationStateMachineName = "Body",
+                activationStateMachineName = "Body2",
                 interruptPriority = EntityStates.InterruptPriority.Skill,
 
                 baseMaxStock = 1,
@@ -460,7 +461,7 @@ namespace ChallengerMod.Survivors.Challenger
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Underclock)),
                 
-                activationStateMachineName = "Body",
+                activationStateMachineName = "Body2",
                 interruptPriority = EntityStates.InterruptPriority.Skill,
 
                 baseMaxStock = 1,
@@ -576,10 +577,6 @@ namespace ChallengerMod.Survivors.Challenger
                 args.armorAdd += 300;
                 args.regenMultAdd += 9;
                 args.moveSpeedReductionMultAdd += 0.25f;
-            }
-            if (sender.HasBuff(ChallengerBuffs.disectDebuff))
-            {
-                
             }
         }
 

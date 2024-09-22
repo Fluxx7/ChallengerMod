@@ -20,15 +20,9 @@ namespace ChallengerMod.Survivors.Challenger
 {
     internal class ChallengerOverclockController : MonoBehaviour
     {
-        private static int state = 0;
-        private static int new_state = 0;
-        //public void Awake() 
-        //{
-        //}
 
         public static void StartOverclock(BaseSkillState caller, GameObject gameObject)
         {
-            new_state = 1;
             if (caller.isAuthority && caller.skillLocator)
             {
                 caller.skillLocator.primary = caller.skillLocator.FindSkill("OverclockPrimary");
@@ -39,7 +33,6 @@ namespace ChallengerMod.Survivors.Challenger
         }
         public static void EndOverclock(BaseSkillState caller, GameObject gameObject)
         {
-            new_state = 0;
             if (caller.isAuthority && caller.skillLocator)
             {
                 caller.skillLocator.primary = caller.skillLocator.FindSkill("Primary");

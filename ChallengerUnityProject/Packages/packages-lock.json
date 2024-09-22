@@ -59,6 +59,12 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "riskofrain2": {
+      "version": "file:Risk of Rain 2",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

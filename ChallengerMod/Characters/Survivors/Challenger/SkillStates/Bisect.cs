@@ -49,7 +49,6 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         private bool hasFired;
         private bool canFire;
         protected bool inHitPause;
-        private bool hasHopped;
         protected float stopwatch;
         protected Animator animator;
 

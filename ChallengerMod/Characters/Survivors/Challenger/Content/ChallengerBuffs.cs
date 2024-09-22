@@ -13,6 +13,8 @@ namespace ChallengerMod.Survivors.Challenger
         public static BuffDef armorBuff;
         public static BuffDef disectDebuff;
 
+        public static DotController.DotIndex disectDoT;
+
         public static void Init(AssetBundle assetBundle)
         {
             armorBuff = Modules.Content.CreateAndAddBuff("ChallengerRemediate",
@@ -29,17 +31,26 @@ namespace ChallengerMod.Survivors.Challenger
         }
 
         private static void AddDoTs() {
-            var poisonDef = new DotController.DotDef
+            var disectDef = new DotController.DotDef
             {
                 interval = 0.1f,
-                damageCoefficient = AssassinStaticValues.poisonDOTDamageCoef,
-                damageColorIndex = DamageColorIndex.Poison,
-                associatedBuff = poisonDebuff,
+                damageCoefficient = ChallengerStaticValues.disectDamageCoefficient,
+                damageColorIndex = DamageColorIndex.WeakPoint,
+                associatedBuff = disectDebuff,
                 terminalTimedBuffDuration = 10f,
                 resetTimerOnAdd = true
             };
 
-            poisonDoT = DotAPI.RegisterDotDef(poisonDef);
+            disectDoT = DotAPI.RegisterDotDef(disectDef, DisectBehavior, DisectVisual);
+        }
+
+        public static void DisectBehavior(RoR2.DotController self, RoR2.DotController.DotStack dotStack) { 
+
+        }
+
+        public static void DisectVisual(RoR2.DotController self)
+        {
+
         }
     }
 }
