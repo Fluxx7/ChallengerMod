@@ -13,24 +13,18 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         {
             base.OnEnter();
             ChallengerSystemsController.EndOverclock(this, gameObject);
-            ChallengerSystemsController.AddEnergyDrain(ChallengerStaticValues.remediateEnergyCostPerSec);
-            characterBody.AddBuff(ChallengerBuffs.armorBuff);
+            ChallengerSystemsController.ToggleRemediate();
         }
 
         public override void OnExit()
         {
-            ChallengerSystemsController.RemoveEnergyDrain(ChallengerStaticValues.remediateEnergyCostPerSec);
-            characterBody.RemoveBuff(ChallengerBuffs.armorBuff);
             base.OnExit();
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if (!ChallengerSystemsController.CheckEnergy(ChallengerStaticValues.remediateEnergyCostPerSec/60)){
-                outer.SetNextStateToMain();
-                return;
-            }
+            outer.SetNextStateToMain();
             
         }
 

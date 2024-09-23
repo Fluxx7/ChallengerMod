@@ -26,8 +26,8 @@ namespace ChallengerMod.Survivors.Challenger
         private void Start() 
         {
             victimBody = GetComponent<CharacterBody>();
-            stacks = (20/(1 + stackCoef * (victimBody.healthComponent.health/attackerBody.healthComponent.health)));
-            interval = 0.33f / stacks;
+            stacks = (40/(1 + stackCoef * (victimBody.healthComponent.health/attackerBody.healthComponent.health)));
+            interval = 0.66f / stacks;
         }
 
         private void FixedUpdate() 
@@ -42,7 +42,7 @@ namespace ChallengerMod.Survivors.Challenger
                     damage = ChallengerStaticValues.disectDamageCoefficient * attackerBody.damage,
                     damageColorIndex = DamageColorIndex.Heal,
                     force = Vector3.zero,
-                    procCoefficient = 0.5f, //0.5% chance,
+                    procCoefficient = 0.5f, 
                     damageType = DamageType.Generic,
                     position = victimBody.healthComponent.body.corePosition,
                     dotIndex = DotController.DotIndex.None,

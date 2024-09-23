@@ -9,26 +9,31 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using EntityStates;
+using UnityEngine.UIElements;
 
 namespace ChallengerMod.Survivors.Challenger
 {
     internal class ChallengerSystemsController : MonoBehaviour
     {
-        public CharacterBody characterBody;
+        public static CharacterBody characterBody;
 
         // Variables to fine-tune energy balancing
         public static float baseEnergy = 0f;
         public static float baseRecharge = 0f;
         public static float energyScalingRatio = 1f;
         public static float rechargeScalingRatio = 5f;
-        public static float rechargeLevelScaling = 0.1f;
+        public static float rechargeLevelScaling = 1f;
         public static float efficiencyScalingRatio = 3f;
 
-        public static float currentEnergy;
-        public static float currentDrain;
+        private static float currentEnergy;
+        private static float currentDrain;
         public static float efficiency;
         static bool debug = true;
         private static float currentRecharge;
+
+        private static float healMult = 0.5f;
+        private static bool remediate = false;
+        private static float currScale;
 
         public void Awake() 
         { 
@@ -52,6 +57,18 @@ namespace ChallengerMod.Survivors.Challenger
                 }
                 if (debug) { 
                     currentRecharge = CalculateEnergyRecharge();
+                }
+
+                if (remediate)
+                {
+                    Debug(ChallengerStaticValues.remediateEnergyCostPerSec * currScale / 60);
+                    if (currentEnergy < ChallengerStaticValues.remediateEnergyCostPerSec * currScale / 60) {
+                        ToggleRemediate();
+                        
+                    } else {
+                        characterBody.healthComponent.HealFraction(currScale * healMult / 60, default(ProcChainMask));
+                    }
+                    
                 }
             }
             
@@ -104,6 +121,25 @@ namespace ChallengerMod.Survivors.Challenger
             currentDrain -= amount;
         }
 
+        public static void ToggleRemediate(float scale = 1f) {
+            
+            float drain = ChallengerStaticValues.remediateEnergyCostPerSec*scale;
+            if (remediate)
+            {
+                characterBody.RemoveBuff(ChallengerBuffs.armorBuff);
+                currentDrain -= drain*currScale;
+                characterBody.armor -= 300 * currScale;
+                remediate = false;
+            } else
+            {
+                characterBody.AddBuff(ChallengerBuffs.armorBuff);
+                currentDrain += drain*scale;
+                characterBody.armor += 300 * scale;
+                currScale = scale;
+                remediate = true;
+            }
+        }
+
         /*
          *                                                    100
          *  Energy Usage = Base Energy Usage * ---------------------------------
@@ -122,8 +158,9 @@ namespace ChallengerMod.Survivors.Challenger
         }
 
         private static void Debug(float consumption) {
-            Chat.AddMessage("Current Energy: " + currentEnergy + ", Current Drain: " + currentDrain + ", Current Efficiency: " + efficiency + ", Energy after Usage: " + (currentEnergy - consumption) + ", Current Recharge: " + currentRecharge);
+            Chat.AddMessage("Current Energy: " + currentEnergy + ", Current Drain: " + currentDrain + ", Current Efficiency: " + efficiency + ", Energy Consumption: " + (consumption) + ", Current Recharge: " + currentRecharge);
         }
+
         public static void StartOverclock(BaseSkillState caller, GameObject gameObject)
         {
             if (caller.isAuthority && caller.skillLocator)

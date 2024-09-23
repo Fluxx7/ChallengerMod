@@ -571,12 +571,7 @@ namespace ChallengerMod.Survivors.Challenger
         private void RecalculateStatsAPI_GetStatCoefficients(CharacterBody sender, R2API.RecalculateStatsAPI.StatHookEventArgs args)
         {
 
-            if (sender.HasBuff(ChallengerBuffs.armorBuff))
-            {
-                args.armorAdd += 300;
-                args.regenMultAdd += 9;
-                args.moveSpeedReductionMultAdd += 0.25f;
-            }
+            
         }
 
         

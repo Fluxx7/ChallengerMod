@@ -48,7 +48,6 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         {
             base.FixedUpdate();
             if (!canFire) {
-                skillLocator.FindSkill("OverclockBisect").AddOneStock();
                 outer.SetNextStateToMain();
                 return;
             }

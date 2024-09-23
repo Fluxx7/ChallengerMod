@@ -6,7 +6,7 @@ namespace ChallengerMod.Survivors.Challenger
     {
         public const float bisectDamageCoefficient = 2.0f;
 
-        public const float disectDamageCoefficient = 1.4f;
+        public const float disectDamageCoefficient = 0.7f;
 
         public const float igniteBaseDamageCoefficient = 6f;
 
