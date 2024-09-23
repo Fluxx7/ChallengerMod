@@ -7,10 +7,12 @@ using TMPro;
 using RoR2.CharacterAI;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+using EntityStates;
 
 namespace ChallengerMod.Survivors.Challenger
 {
-    internal class ChallengerEnergyController : MonoBehaviour
+    internal class ChallengerSystemsController : MonoBehaviour
     {
         public CharacterBody characterBody;
 
@@ -19,7 +21,8 @@ namespace ChallengerMod.Survivors.Challenger
         public static float baseRecharge = 0f;
         public static float energyScalingRatio = 1f;
         public static float rechargeScalingRatio = 5f;
-        public static float efficiencyScalingRatio = 1f;
+        public static float rechargeLevelScaling = 0.1f;
+        public static float efficiencyScalingRatio = 3f;
 
         public static float currentEnergy;
         public static float currentDrain;
@@ -111,7 +114,7 @@ namespace ChallengerMod.Survivors.Challenger
         }
         public float CalculateEnergyRecharge()
         {
-            return baseRecharge + (characterBody.attackSpeed * rechargeScalingRatio) - (currentDrain * efficiency);
+            return baseRecharge + rechargeLevelScaling*(characterBody.level - 1) + (characterBody.attackSpeed * rechargeScalingRatio) - (currentDrain * efficiency);
         }
         public float CalculateMaxEnergy()
         {
@@ -120,6 +123,26 @@ namespace ChallengerMod.Survivors.Challenger
 
         private static void Debug(float consumption) {
             Chat.AddMessage("Current Energy: " + currentEnergy + ", Current Drain: " + currentDrain + ", Current Efficiency: " + efficiency + ", Energy after Usage: " + (currentEnergy - consumption) + ", Current Recharge: " + currentRecharge);
+        }
+        public static void StartOverclock(BaseSkillState caller, GameObject gameObject)
+        {
+            if (caller.isAuthority && caller.skillLocator)
+            {
+                caller.skillLocator.primary = caller.skillLocator.FindSkill("OverclockPrimary");
+                caller.skillLocator.secondary = caller.skillLocator.FindSkill("OverclockSecondary");
+                caller.skillLocator.utility = caller.skillLocator.FindSkill("OverclockUtility");
+                caller.skillLocator.special = caller.skillLocator.FindSkill("OverclockSpecial");
+            }
+        }
+        public static void EndOverclock(BaseSkillState caller, GameObject gameObject)
+        {
+            if (caller.isAuthority && caller.skillLocator)
+            {
+                caller.skillLocator.primary = caller.skillLocator.FindSkill("Primary");
+                caller.skillLocator.secondary = caller.skillLocator.FindSkill("Secondary");
+                caller.skillLocator.utility = caller.skillLocator.FindSkill("Utility");
+                caller.skillLocator.special = caller.skillLocator.FindSkill("Special");
+            }
         }
     }
 }

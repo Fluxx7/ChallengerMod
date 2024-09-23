@@ -17,7 +17,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
 
         public override void OnEnter()
         {
-            canFire = ChallengerEnergyController.UseEnergy(ChallengerStaticValues.igniteEnergyCost);
+            canFire = ChallengerSystemsController.UseEnergy(ChallengerStaticValues.igniteEnergyCost);
             if (canFire)
             {
                 projectilePrefab = ChallengerAssets.bombProjectilePrefab;

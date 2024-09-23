@@ -16,7 +16,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         private float duration = 0.6f;
         public override void OnEnter()
         {
-            ChallengerOverclockController.StartOverclock(this, gameObject);
+            ChallengerSystemsController.StartOverclock(this, gameObject);
             base.OnEnter();
         }
 

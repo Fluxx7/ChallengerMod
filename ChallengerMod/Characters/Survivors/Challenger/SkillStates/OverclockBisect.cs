@@ -26,10 +26,10 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            ChallengerOverclockController.EndOverclock(this, gameObject);
+            ChallengerSystemsController.EndOverclock(this, gameObject);
             duration = baseDuration / attackSpeedStat;
             fireTime = firePercentTime * duration;
-            canFire = ChallengerEnergyController.UseEnergy(ChallengerStaticValues.overBisectEnergyCost);
+            canFire = ChallengerSystemsController.UseEnergy(ChallengerStaticValues.overBisectEnergyCost);
             if (canFire)
             {
                 characterBody.SetAimTimer(2f);

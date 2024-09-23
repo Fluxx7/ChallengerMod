@@ -2,6 +2,7 @@
 using ChallengerMod.Survivors.Challenger;
 using RoR2;
 using UnityEngine;
+using R2API;
 
 namespace ChallengerMod.Survivors.Challenger.SkillStates
 {
@@ -12,9 +13,9 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         public static float baseDuration = 0.6f;
         //delay on firing is usually ass-feeling. only set this if you know what you're doing
         public static float firePercentTime = 0.0f;
-        public static float force = 800f;
+        public static float force = 0f;
         public static float recoil = 3f;
-        public static float range = 256f;
+        public static float range = 15f;
         public static GameObject tracerEffectPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/Tracers/TracerGoldGat");
 
         private float duration;
@@ -27,7 +28,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         {
             base.OnEnter();
             duration = baseDuration / attackSpeedStat;
-            canFire = ChallengerEnergyController.UseEnergy(ChallengerStaticValues.disectEnergyCost);
+            canFire = ChallengerSystemsController.UseEnergy(ChallengerStaticValues.disectEnergyCost);
             fireTime = firePercentTime * duration;
             if (canFire)
             {
@@ -78,12 +79,12 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
                     Ray aimRay = GetAimRay();
                     AddRecoil(-1f * recoil, -2f * recoil, -0.5f * recoil, 0.5f * recoil);
 
-                    new BulletAttack
+                    BulletAttack temp = new BulletAttack
                     {
                         bulletCount = 1,
                         aimVector = aimRay.direction,
                         origin = aimRay.origin,
-                        damage = damageCoefficient * damageStat,
+                        damage = 0,
                         damageColorIndex = DamageColorIndex.Default,
                         damageType = DamageType.Generic,
                         falloffModel = BulletAttack.FalloffModel.None,
@@ -107,7 +108,10 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
                         spreadYawScale = 1f,
                         queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
                         hitEffectPrefab = EntityStates.Commando.CommandoWeapon.FirePistol2.hitEffectPrefab,
-                    }.Fire();
+                    };
+
+                    temp.AddModdedDamageType(ChallengerAssets.disectDmgType);
+                    temp.Fire();
                 }
             }
         }

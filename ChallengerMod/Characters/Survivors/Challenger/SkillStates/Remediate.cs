@@ -12,14 +12,14 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            ChallengerOverclockController.EndOverclock(this, gameObject);
-            ChallengerEnergyController.AddEnergyDrain(ChallengerStaticValues.remediateEnergyCostPerSec);
+            ChallengerSystemsController.EndOverclock(this, gameObject);
+            ChallengerSystemsController.AddEnergyDrain(ChallengerStaticValues.remediateEnergyCostPerSec);
             characterBody.AddBuff(ChallengerBuffs.armorBuff);
         }
 
         public override void OnExit()
         {
-            ChallengerEnergyController.RemoveEnergyDrain(ChallengerStaticValues.remediateEnergyCostPerSec);
+            ChallengerSystemsController.RemoveEnergyDrain(ChallengerStaticValues.remediateEnergyCostPerSec);
             characterBody.RemoveBuff(ChallengerBuffs.armorBuff);
             base.OnExit();
         }
@@ -27,7 +27,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if (!ChallengerEnergyController.CheckEnergy(ChallengerStaticValues.remediateEnergyCostPerSec/60)){
+            if (!ChallengerSystemsController.CheckEnergy(ChallengerStaticValues.remediateEnergyCostPerSec/60)){
                 outer.SetNextStateToMain();
                 return;
             }

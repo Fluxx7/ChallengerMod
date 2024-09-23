@@ -104,8 +104,7 @@ namespace ChallengerMod.Survivors.Challenger
             ChallengerUnlockables.Init();
 
             base.InitializeCharacter();
-            bodyPrefab.AddComponent<ChallengerEnergyController>();
-            bodyPrefab.AddComponent<ChallengerOverclockController>();
+            bodyPrefab.AddComponent<ChallengerSystemsController>();
             bodyPrefab.AddComponent<ChallengerOverlayController>();
 
 

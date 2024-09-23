@@ -56,7 +56,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         {
             base.OnEnter();
             duration = baseDuration / attackSpeedStat;
-            canFire = ChallengerEnergyController.UseEnergy(ChallengerStaticValues.bisectEnergyCost);
+            canFire = ChallengerSystemsController.UseEnergy(ChallengerStaticValues.bisectEnergyCost);
             animator = GetModelAnimator();
             if (canFire)
             {

@@ -1,7 +1,9 @@
 ﻿using BepInEx;
 using ChallengerMod.Survivors.Challenger;
+using R2API;
 using R2API.Utils;
 using RoR2;
+using System;
 using System.Collections.Generic;
 using System.Security;
 using System.Security.Permissions;
@@ -37,8 +39,24 @@ namespace ChallengerMod
             // character initialization
             new ChallengerSurvivor().Initialize();
 
+            Hook();
+
             // make a content pack and add it. this has to be last
             new Modules.ContentPacks().Initialize();
+        }
+
+        void Hook() {
+            On.RoR2.CharacterBody.OnTakeDamageServer += CharacterBody_OnTakeDamageServer;
+        }
+
+        void CharacterBody_OnTakeDamageServer(On.RoR2.CharacterBody.orig_OnTakeDamageServer orig, CharacterBody self, DamageReport damageReport) {
+            orig(self, damageReport);
+            if (DamageAPI.HasModdedDamageType(damageReport.damageInfo, ChallengerAssets.disectDmgType))
+            {
+                self.gameObject.AddComponent<ChallengerDisectController>();
+                self.gameObject.GetComponent<ChallengerDisectController>().attackerBody = damageReport.attackerBody;
+ 
+            }
         }
     }
 }

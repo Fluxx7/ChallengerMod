@@ -7,10 +7,11 @@ using TMPro;
 using RoR2.CharacterAI;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 namespace ChallengerMod.Survivors.Challenger
 {
-    internal class ChallengerOverlayController : MonoBehaviour
+    internal class ChallengerOverlayController : NetworkBehaviour
     {
         private HUD hud = null;
 

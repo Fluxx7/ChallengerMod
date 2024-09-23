@@ -3,6 +3,7 @@ using UnityEngine;
 using ChallengerMod.Modules;
 using System;
 using RoR2.Projectile;
+using static R2API.DamageAPI;
 
 namespace ChallengerMod.Survivors.Challenger
 {
@@ -21,6 +22,7 @@ namespace ChallengerMod.Survivors.Challenger
         public static GameObject bombProjectilePrefab;
 
         private static AssetBundle _assetBundle;
+        public static ModdedDamageType disectDmgType = ReserveDamageType();
 
         public static void Init(AssetBundle assetBundle)
         {

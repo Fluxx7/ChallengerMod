@@ -25,7 +25,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            ChallengerOverclockController.EndOverclock(this, gameObject);
+            ChallengerSystemsController.EndOverclock(this, gameObject);
             duration = baseDuration / attackSpeedStat;
             fireTime = firePercentTime * duration;
             characterBody.SetAimTimer(2f);
