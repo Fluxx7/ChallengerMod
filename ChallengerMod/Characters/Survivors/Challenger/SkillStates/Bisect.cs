@@ -102,7 +102,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
                     hitMask = LayerIndex.CommonMasks.bullet,
                     minSpread = 0f,
                     maxSpread = 0f,
-                    isCrit = false,
+                    isCrit = this.RollCrit(),
                     owner = gameObject,
                     muzzleName = muzzleString,
                     smartCollision = true,

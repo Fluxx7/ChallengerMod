@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.passivepicasso.thunderkit": {
+      "version": "https://github.com/PassivePicasso/ThunderKit.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.scriptablebuildpipeline": "1.16.1"
+      },
+      "hash": "9501deb9cb6b62d45cfa56f0c5629e3c8366d1f7"
+    },
     "com.unity.assetbundlebrowser": {
       "version": "1.7.0",
       "depth": 0,
@@ -26,6 +35,13 @@
     "com.unity.ide.vscode": {
       "version": "1.2.5",
       "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.scriptablebuildpipeline": {
+      "version": "1.20.1",
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
