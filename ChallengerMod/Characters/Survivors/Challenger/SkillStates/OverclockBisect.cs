@@ -32,6 +32,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
             canFire = ChallengerSystemsController.UseEnergy(ChallengerStaticValues.overBisectEnergyCost);
             if (canFire)
             {
+                this.skillLocator.FindSkill("OverclockPrimary").stock--;
                 characterBody.SetAimTimer(2f);
                 muzzleString = "Muzzle";
 
@@ -92,7 +93,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
                         hitMask = LayerIndex.CommonMasks.bullet,
                         minSpread = 0f,
                         maxSpread = 0f,
-                        isCrit = RollCrit(),
+                        isCrit = false,
                         owner = gameObject,
                         muzzleName = muzzleString,
                         smartCollision = true,

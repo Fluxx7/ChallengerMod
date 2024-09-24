@@ -16,11 +16,13 @@ namespace ChallengerMod.Survivors.Challenger
         public CharacterBody victimBody;
         public CharacterBody attackerBody;
 
+
         private float stacks;
         private float timer;
-        private readonly float stackCoef = 0.25f;
+        private readonly float stackCoef = 0.5f;
         private float interval;
         public DamageInfo info;
+        private GameObject attackerObject;
         
 
         private void Start() 
@@ -28,6 +30,7 @@ namespace ChallengerMod.Survivors.Challenger
             victimBody = GetComponent<CharacterBody>();
             stacks = (40/(1 + stackCoef * (victimBody.healthComponent.health/attackerBody.healthComponent.health)));
             interval = 0.66f / stacks;
+            attackerObject = attackerBody.gameObject;
         }
 
         private void FixedUpdate() 
@@ -35,20 +38,24 @@ namespace ChallengerMod.Survivors.Challenger
             timer += Time.fixedDeltaTime;
             if (timer >= interval)
             {
-                info = new DamageInfo()
-                {
-                    attacker = attackerBody.gameObject,
-                    crit = false,
-                    damage = ChallengerStaticValues.disectDamageCoefficient * attackerBody.damage,
-                    damageColorIndex = DamageColorIndex.Heal,
-                    force = Vector3.zero,
-                    procCoefficient = 0.5f, 
-                    damageType = DamageType.Generic,
-                    position = victimBody.healthComponent.body.corePosition,
-                    dotIndex = DotController.DotIndex.None,
-                    inflictor = attackerBody.gameObject
-                };
-                victimBody.healthComponent.TakeDamage(info);
+                if (attackerBody != null && attackerObject != null)
+                { 
+                    info = new DamageInfo()
+                    {
+                        attacker = attackerObject,
+                        crit = false,
+                        damage = ChallengerStaticValues.disectDamageCoefficient * attackerBody.damage,
+                        damageColorIndex = DamageColorIndex.WeakPoint,
+                        force = Vector3.zero,
+                        procCoefficient = 0.5f,
+                        damageType = DamageType.Generic,
+                        position = victimBody.corePosition,
+                        dotIndex = DotController.DotIndex.None,
+                        inflictor = attackerObject
+                    };
+
+                    victimBody.healthComponent.TakeDamage(info);
+                }
                 stacks--;
                 timer = 0f;
             }

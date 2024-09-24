@@ -53,8 +53,7 @@ namespace ChallengerMod
             orig(self, damageReport);
             if (DamageAPI.HasModdedDamageType(damageReport.damageInfo, ChallengerAssets.disectDmgType))
             {
-                self.gameObject.AddComponent<ChallengerDisectController>();
-                self.gameObject.GetComponent<ChallengerDisectController>().attackerBody = damageReport.attackerBody;
+                self.gameObject.AddComponent<ChallengerDisectController>().attackerBody = damageReport.attackerBody;
  
             }
         }

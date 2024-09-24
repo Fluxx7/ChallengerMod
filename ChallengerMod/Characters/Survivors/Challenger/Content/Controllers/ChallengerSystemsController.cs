@@ -31,7 +31,7 @@ namespace ChallengerMod.Survivors.Challenger
         static bool debug = true;
         private static float currentRecharge;
 
-        private static float healMult = 0.5f;
+        private static float healBase = 30f;
         private static bool remediate = false;
         private static float currScale;
 
@@ -51,7 +51,8 @@ namespace ChallengerMod.Survivors.Challenger
             if (characterBody.hasEffectiveAuthority)
             {
                 efficiency = CalculateEnergyEfficiency();
-                if (!(currentEnergy >= CalculateMaxEnergy()))
+                float recharge = CalculateEnergyRecharge() / 60;
+                if (!(currentEnergy >= CalculateMaxEnergy()) || recharge < 0)
                 {
                     currentEnergy += CalculateEnergyRecharge()/60;
                 }
@@ -66,7 +67,7 @@ namespace ChallengerMod.Survivors.Challenger
                         ToggleRemediate();
                         
                     } else {
-                        characterBody.healthComponent.HealFraction(currScale * healMult / 60, default(ProcChainMask));
+                        characterBody.healthComponent.Heal(currScale * healBase / 60, default(ProcChainMask));
                     }
                     
                 }

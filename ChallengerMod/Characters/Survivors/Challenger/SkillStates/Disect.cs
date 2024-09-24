@@ -32,6 +32,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
             fireTime = firePercentTime * duration;
             if (canFire)
             {
+                this.skillLocator.FindSkill("Secondary").stock--;
                 characterBody.SetAimTimer(2f);
                 muzzleString = "Muzzle";
 

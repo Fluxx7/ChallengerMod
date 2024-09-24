@@ -13,17 +13,17 @@ using RoR2.Projectile;
 
 namespace ChallengerMod.Survivors.Challenger.SkillStates
 {
-    public class Bisect : BaseSkillState, RoR2.Skills.SteppedSkillDef.IStepSetter
+    public class Bisect : GenericProjectileBaseState, RoR2.Skills.SteppedSkillDef.IStepSetter
     {
         public int swingIndex;
 
         protected string hitboxGroupName = "SwordGroup";
 
         protected DamageType damageType = DamageType.Generic;
-        protected float damageCoefficient = ChallengerStaticValues.bisectDamageCoefficient;
+        protected float DamageCoefficient = ChallengerStaticValues.bisectDamageCoefficient;
         protected float procCoefficient = 1f;
         protected float pushForce = 300f;
-        protected float baseDuration = 2f;
+        protected float BaseDuration = 2f;
 
         protected float attackStartPercentTime = 0.2f;
         protected float attackEndPercentTime = 0.4f;
@@ -31,8 +31,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         protected float earlyExitPercentTime = 0.4f;
 
         protected float attackRecoil = 0.75f;
-        private float range = 256f;
-        private float force = 200f;
+        private float Force = 200f;
 
         protected float hitHopVelocity = 4f;
 
@@ -45,11 +44,11 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         protected GameObject hitEffectPrefab;
         protected NetworkSoundEventIndex impactSound = NetworkSoundEventIndex.Invalid;
 
-        public float duration;
+        public float Furation;
         private bool hasFired;
         private bool canFire;
         protected bool inHitPause;
-        protected float stopwatch;
+        protected float Stopwatch;
         protected Animator animator;
 
         public override void OnEnter()
@@ -88,37 +87,20 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
             {
 
                 Ray aimRay = GetAimRay();
-                new BulletAttack
-                {
-                    bulletCount = 1,
-                    aimVector = aimRay.direction,
-                    origin = aimRay.origin,
-                    damage = damageCoefficient * damageStat,
-                    damageColorIndex = DamageColorIndex.Default,
-                    damageType = DamageType.Generic,
-                    falloffModel = BulletAttack.FalloffModel.None,
-                    maxDistance = range,
-                    force = force,
-                    hitMask = LayerIndex.CommonMasks.bullet,
-                    minSpread = 0f,
-                    maxSpread = 0f,
-                    isCrit = this.RollCrit(),
-                    owner = gameObject,
-                    muzzleName = muzzleString,
-                    smartCollision = true,
-                    procChainMask = default,
-                    procCoefficient = procCoefficient,
-                    radius = 0.75f,
-                    sniper = false,
-                    stopperMask = LayerIndex.CommonMasks.bullet,
-                    weapon = null,
-                    tracerEffectPrefab = slashPrefab,
-                    spreadPitchScale = 1f,
-                    spreadYawScale = 1f,
-                    queryTriggerInteraction = QueryTriggerInteraction.UseGlobal,
-                    hitEffectPrefab = EntityStates.Commando.CommandoWeapon.FirePistol2.hitEffectPrefab,
-                }.Fire();
-                //ProjectileManager.FireProjectile(this.slashPrefab, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), base.gameObject, this.damageCoefficient * this.damageStat, force, false, DamageColorIndex.Default, null, -1f);
+                projectilePrefab = ChallengerAssets.slashProjectilePrefab;
+                baseDuration = BaseDuration;
+                baseDelayBeforeFiringProjectile = 0;
+
+                damageCoefficient = DamageCoefficient;
+                //proc coefficient is set on the components of the projectile prefab
+                force = Force;
+
+                //base.projectilePitchBonus = 0;
+                //base.minSpread = 0;
+                //base.maxSpread = 0;
+
+                recoilAmplitude = 0.1f;
+                bloom = 10;
             }
         }
 

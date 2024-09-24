@@ -20,6 +20,7 @@ namespace ChallengerMod.Survivors.Challenger
 
         //projectiles
         public static GameObject bombProjectilePrefab;
+        public static GameObject slashProjectilePrefab;
 
         private static AssetBundle _assetBundle;
         public static ModdedDamageType disectDmgType = ReserveDamageType();
@@ -72,9 +73,9 @@ namespace ChallengerMod.Survivors.Challenger
         private static void CreateProjectiles()
         {
             CreateBombProjectile();
+            slashProjectilePrefab = Asset.LoadAndAddProjectilePrefab(_assetBundle, "primaryBisectSlash");
             Content.AddProjectilePrefab(bombProjectilePrefab);
         }
-
         private static void CreateBombProjectile()
         {
             //highly recommend setting up projectiles in editor, but this is a quick and dirty way to prototype if you want
@@ -92,7 +93,7 @@ namespace ChallengerMod.Survivors.Challenger
             bombImpactExplosion.impactEffect = bombExplosionEffect;
             bombImpactExplosion.lifetimeExpiredSound = Content.CreateAndAddNetworkSoundEventDef("HenryBombExplosion");
             bombImpactExplosion.timerAfterImpact = true;
-            bombImpactExplosion.lifetimeAfterImpact = 0.1f;
+            bombImpactExplosion.lifetimeAfterImpact = 0f;
 
             ProjectileController bombController = bombProjectilePrefab.GetComponent<ProjectileController>();
 
@@ -101,6 +102,8 @@ namespace ChallengerMod.Survivors.Challenger
             
             bombController.startSound = "";
         }
+
+        
         #endregion projectiles
     }
 }

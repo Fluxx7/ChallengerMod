@@ -20,6 +20,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
             canFire = ChallengerSystemsController.UseEnergy(ChallengerStaticValues.igniteEnergyCost);
             if (canFire)
             {
+                this.skillLocator.FindSkill("Utility").stock--;
                 projectilePrefab = ChallengerAssets.bombProjectilePrefab;
                 //base.effectPrefab = Modules.Assets.SomeMuzzleEffect;
                 //targetmuzzle = "muzzleThrow"

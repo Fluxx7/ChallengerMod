@@ -260,7 +260,7 @@ namespace ChallengerMod.Survivors.Challenger
 
                 rechargeStock = 1,
                 requiredStock = 1,
-                stockToConsume = 1,
+                stockToConsume = 0,
 
                 resetCooldownTimerOnUse = false,
                 fullRestockOnAssign = true,
@@ -299,7 +299,7 @@ namespace ChallengerMod.Survivors.Challenger
 
                 rechargeStock = 1,
                 requiredStock = 1,
-                stockToConsume = 1,
+                stockToConsume = 0,
 
                 resetCooldownTimerOnUse = false,
                 fullRestockOnAssign = true,
@@ -331,7 +331,7 @@ namespace ChallengerMod.Survivors.Challenger
 
                 rechargeStock = 1,
                 requiredStock = 1,
-                stockToConsume = 1,
+                stockToConsume = 0,
 
                 resetCooldownTimerOnUse = false,
                 fullRestockOnAssign = true,
@@ -371,7 +371,7 @@ namespace ChallengerMod.Survivors.Challenger
 
                 rechargeStock = 1,
                 requiredStock = 1,
-                stockToConsume = 1,
+                stockToConsume = 0,
 
                 resetCooldownTimerOnUse = false,
                 fullRestockOnAssign = true,
@@ -404,7 +404,7 @@ namespace ChallengerMod.Survivors.Challenger
 
                 rechargeStock = 1,
                 requiredStock = 1,
-                stockToConsume = 1,
+                stockToConsume = 0,
 
                 resetCooldownTimerOnUse = false,
                 fullRestockOnAssign = true,
