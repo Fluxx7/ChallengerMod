@@ -3,160 +3,104 @@ using EntityStates;
 using IL.RoR2.Skills;
 using RoR2;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Networking;
 using RoR2.Audio;
 using RoR2.Skills;
 using System;
 using System.Collections.Generic;
-using UnityEngine.Networking;
+using UnityEngine.Bindings;
+using UnityEngine.Internal;
+using UnityEngine.Scripting;
 using static UnityEngine.ParticleSystem.PlaybackState;
 using RoR2.Projectile;
 
 namespace ChallengerMod.Survivors.Challenger.SkillStates
 {
-    public class Bisect : GenericProjectileBaseState, RoR2.Skills.SteppedSkillDef.IStepSetter
+    public class Bisect : BaseSkillState, RoR2.Skills.SteppedSkillDef.IStepSetter
     {
         public int swingIndex;
+        
+        private GameObject prefab = ChallengerAssets.slashProjectilePrefab;
 
-        protected string hitboxGroupName = "SwordGroup";
-
-        protected DamageType damageType = DamageType.Generic;
-        protected float DamageCoefficient = ChallengerStaticValues.bisectDamageCoefficient;
-        protected float procCoefficient = 1f;
-        protected float pushForce = 300f;
-        protected float BaseDuration = 2f;
-
-        protected float attackStartPercentTime = 0.2f;
-        protected float attackEndPercentTime = 0.4f;
-
-        protected float earlyExitPercentTime = 0.4f;
-
-        protected float attackRecoil = 0.75f;
-        private float Force = 200f;
-
-        protected float hitHopVelocity = 4f;
-
-        protected string swingSoundString = "";
-        protected string hitSoundString = "";
-        protected string muzzleString = "SwingCenter";
-        protected string playbackRateParam = "Slash.playbackRate";
-        protected GameObject swingEffectPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/Tracers/TracerGoldGat");
-        protected GameObject slashPrefab = LegacyResourcesAPI.Load<GameObject>("Prefabs/Effects/Tracers/TracerGoldGat");
-        protected GameObject hitEffectPrefab;
-        protected NetworkSoundEventIndex impactSound = NetworkSoundEventIndex.Invalid;
-
-        public float Furation;
-        private bool hasFired;
+        //private ChallengerSystemsController energyController;
+        private bool hasFired = false;
         private bool canFire;
-        protected bool inHitPause;
-        protected float Stopwatch;
-        protected Animator animator;
+        private float baseDuration = 0.8f;
+        private float baseDelay = 0.1f;
+        private float duration;
+        private float force = 100f;
+        private float damageCoef = ChallengerStaticValues.bisectDamageCoefficient;
+        private Animator animator;
 
         public override void OnEnter()
         {
             base.OnEnter();
-            duration = baseDuration / attackSpeedStat;
-            canFire = ChallengerSystemsController.UseEnergy(ChallengerStaticValues.bisectEnergyCost);
-            animator = GetModelAnimator();
+            canFire = base.characterBody.GetComponent<ChallengerSystemsController>().UseEnergy(ChallengerStaticValues.bisectEnergyCost);
+            this.duration = this.baseDuration / this.attackSpeedStat;
             if (canFire)
             {
-                StartAimMode(0.5f + duration, false);
-
-                PlayAttackAnimation();
-            }
+                base.characterBody.SetAimTimer(2f);
+                this.animator = base.GetModelAnimator();
+                PlayCrossfade("Gesture, Override", "Slash" + (swingIndex == 1 ? 2 : 1), "Slash.playbackRate", duration, 0.1f * duration); 
+            } 
             
+
         }
 
-        protected virtual void PlayAttackAnimation()
+        public override InterruptPriority GetMinimumInterruptPriority()
         {
-            PlayCrossfade("Gesture, Override", "Slash" + (1 + swingIndex), playbackRateParam, duration, 0.05f);
-        }
-
-        public override void OnExit()
-        {
-            base.OnExit();
-        }
-
-        protected virtual void PlaySwingEffect()
-        {
-            EffectManager.SimpleMuzzleFlash(swingEffectPrefab, gameObject, muzzleString, false);
-        }
-
-        private void FireAttack()
-        {
-            if (isAuthority)
-            {
-
-                Ray aimRay = GetAimRay();
-                projectilePrefab = ChallengerAssets.slashProjectilePrefab;
-                baseDuration = BaseDuration;
-                baseDelayBeforeFiringProjectile = 0;
-
-                damageCoefficient = DamageCoefficient;
-                //proc coefficient is set on the components of the projectile prefab
-                force = Force;
-
-                //base.projectilePitchBonus = 0;
-                //base.minSpread = 0;
-                //base.maxSpread = 0;
-
-                recoilAmplitude = 0.1f;
-                bloom = 10;
-            }
-        }
-
-        private void EnterAttack()
-        {
-            hasFired = true;
-            Util.PlayAttackSpeedSound(swingSoundString, gameObject, attackSpeedStat);
-
-            PlaySwingEffect();
-
-            if (isAuthority)
-            {
-                AddRecoil(-1f * attackRecoil, -2f * attackRecoil, -0.5f * attackRecoil, 0.5f * attackRecoil);
-            }
+            return InterruptPriority.Skill;
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-
-            if (!canFire) {
-                outer.SetNextStateToMain();
-                return;
-            }
-
-            stopwatch += Time.deltaTime;
-
-            bool fireStarted = stopwatch >= duration * attackStartPercentTime;
-            bool fireEnded = stopwatch >= duration * attackEndPercentTime;
-
-            //to guarantee attack comes out if at high attack speed the stopwatch skips past the firing duration between frames
-            if (fireStarted && !fireEnded || fireStarted && fireEnded && !hasFired)
+            if (canFire)
             {
-                if (!hasFired)
+                if (!this.hasFired && base.fixedAge >= this.duration * baseDelay)
                 {
-                    EnterAttack();
-                    FireAttack();
+                    //Util.PlayAttackSpeedSound(this.attackSoundString, base.gameObject, this.attackSoundPitch);
+                    this.FireSlash();
+                    this.hasFired = true;
                 }
-            }
-
-            if (stopwatch >= duration && isAuthority)
+                if (base.isAuthority && base.fixedAge >= this.duration)
+                {
+                    this.outer.SetNextStateToMain();
+                }
+                
+            } else
             {
                 outer.SetNextStateToMain();
                 return;
             }
+
+            
         }
 
-        public override InterruptPriority GetMinimumInterruptPriority()
+        public override void OnExit() 
+        { 
+            base.OnExit(); 
+        }
+
+        private void FireSlash()
         {
-            if (stopwatch >= duration * earlyExitPercentTime)
+            if (this.hasFired)
             {
-                return InterruptPriority.Any;
+                return;
+            } 
+            Ray aimRay = base.GetAimRay();
+            if (base.isAuthority)
+            {
+                float num = this.damageStat * this.damageCoef;
+                ProjectileManager.instance.FireProjectile(this.prefab, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), base.gameObject, num, this.force, RollCrit(), DamageColorIndex.Default, null, 250f);
             }
-            return InterruptPriority.Skill;
         }
 
+        public void SetStep(int i)
+        {
+            swingIndex = i;
+        }
         public override void OnSerialize(NetworkWriter writer)
         {
             base.OnSerialize(writer);
@@ -167,11 +111,6 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         {
             base.OnDeserialize(reader);
             swingIndex = reader.ReadInt32();
-        }
-
-        public void SetStep(int i)
-        {
-            swingIndex = i;
         }
     }
 }

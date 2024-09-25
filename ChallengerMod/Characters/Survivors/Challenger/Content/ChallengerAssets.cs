@@ -73,8 +73,11 @@ namespace ChallengerMod.Survivors.Challenger
         private static void CreateProjectiles()
         {
             CreateBombProjectile();
-            slashProjectilePrefab = Asset.LoadAndAddProjectilePrefab(_assetBundle, "primaryBisectSlash");
             Content.AddProjectilePrefab(bombProjectilePrefab);
+            slashProjectilePrefab = Asset.LoadAndAddProjectilePrefab(_assetBundle, "primaryBisectSlash");
+            slashProjectilePrefab.AddComponent<BisectBehaviour>();
+            slashProjectilePrefab.GetComponent<ProjectileController>().ghostPrefab.AddComponent<BisectGhostBehaviour>();
+            //bombProjectilePrefab = Asset.LoadAndAddProjectilePrefab(_assetBundle, "primaryBisectSlash");
         }
         private static void CreateBombProjectile()
         {

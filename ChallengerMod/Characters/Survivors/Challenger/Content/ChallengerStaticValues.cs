@@ -4,7 +4,7 @@ namespace ChallengerMod.Survivors.Challenger
 {
     public static class ChallengerStaticValues
     {
-        public const float bisectDamageCoefficient = 2.0f;
+        public const float bisectDamageCoefficient = 1.8f;
 
         public const float disectDamageCoefficient = 0.7f;
 
@@ -12,7 +12,7 @@ namespace ChallengerMod.Survivors.Challenger
 
         public const float igniteChargeMultiplier = 2.5f;
 
-        public const float overBisectDamageCoefficient = 30f;
+        public const float overBisectDamageCoefficient = 50f;
 
         public const int overDisectCooldown = 5;
 

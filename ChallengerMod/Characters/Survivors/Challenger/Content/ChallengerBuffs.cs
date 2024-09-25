@@ -20,7 +20,7 @@ namespace ChallengerMod.Survivors.Challenger
                 false,
                 false);
         }
-
+  
 
     }
 }

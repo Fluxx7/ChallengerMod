@@ -20,7 +20,6 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         private float duration;
         private float fireTime;
         private bool hasFired;
-        private bool canFire;
         private string muzzleString;
 
         public override void OnEnter()
@@ -29,15 +28,11 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
             ChallengerSystemsController.EndOverclock(this, gameObject);
             duration = baseDuration / attackSpeedStat;
             fireTime = firePercentTime * duration;
-            canFire = ChallengerSystemsController.UseEnergy(ChallengerStaticValues.overBisectEnergyCost);
-            if (canFire)
-            {
-                this.skillLocator.FindSkill("OverclockPrimary").stock--;
-                characterBody.SetAimTimer(2f);
-                muzzleString = "Muzzle";
+            characterBody.SetAimTimer(2f);
+            muzzleString = "Muzzle";
 
-                PlayAnimation("LeftArm, Override", "ShootGun", "ShootGun.playbackRate", 1.8f);
-            }
+            PlayAnimation("LeftArm, Override", "ShootGun", "ShootGun.playbackRate", 1.8f);
+            
         }
 
         public override void OnExit()
@@ -48,10 +43,6 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if (!canFire) {
-                outer.SetNextStateToMain();
-                return;
-            }
             if (fixedAge >= fireTime)
             {
                 Fire();
@@ -86,7 +77,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
                         origin = aimRay.origin,
                         damage = damageCoefficient * damageStat,
                         damageColorIndex = DamageColorIndex.Default,
-                        damageType = DamageType.Generic,
+                        damageType = DamageType.BypassArmor,
                         falloffModel = BulletAttack.FalloffModel.None,
                         maxDistance = range,
                         force = force,

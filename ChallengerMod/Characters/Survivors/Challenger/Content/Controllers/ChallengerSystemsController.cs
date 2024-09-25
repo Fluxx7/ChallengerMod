@@ -10,156 +10,57 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using EntityStates;
 using UnityEngine.UIElements;
+using ChallengerMod.Modules.EnergySystem;
 
 namespace ChallengerMod.Survivors.Challenger
 {
-    internal class ChallengerSystemsController : MonoBehaviour
+    internal class ChallengerSystemsController : EnergyController
     {
-        public static CharacterBody characterBody;
 
-        // Variables to fine-tune energy balancing
-        public static float baseEnergy = 0f;
-        public static float baseRecharge = 0f;
-        public static float energyScalingRatio = 1f;
-        public static float rechargeScalingRatio = 5f;
-        public static float rechargeLevelScaling = 1f;
-        public static float efficiencyScalingRatio = 3f;
+        private float healBase = 30f;
+        private bool remediate = false;
+        private float currScale;
 
-        private static float currentEnergy;
-        private static float currentDrain;
-        public static float efficiency;
-        static bool debug = true;
-        private static float currentRecharge;
-
-        private static float healBase = 30f;
-        private static bool remediate = false;
-        private static float currScale;
-
-        public void Awake() 
-        { 
-            characterBody = GetComponent<CharacterBody>();
+        public override void Start()
+        {
+            base.Start();
+            debug = true;
         }
 
-        public void Start() 
+        public override void FixedUpdate() 
         {
-            currentEnergy = CalculateMaxEnergy();
-            efficiency = CalculateEnergyEfficiency();
-        }
-
-        public void FixedUpdate() 
-        {
-            if (characterBody.hasEffectiveAuthority)
+            base.FixedUpdate();
+            if (characterBody.hasEffectiveAuthority && remediate)
             {
-                efficiency = CalculateEnergyEfficiency();
-                float recharge = CalculateEnergyRecharge() / 60;
-                if (!(currentEnergy >= CalculateMaxEnergy()) || recharge < 0)
-                {
-                    currentEnergy += CalculateEnergyRecharge()/60;
-                }
-                if (debug) { 
-                    currentRecharge = CalculateEnergyRecharge();
-                }
-
-                if (remediate)
-                {
-                    Debug(ChallengerStaticValues.remediateEnergyCostPerSec * currScale / 60);
-                    if (currentEnergy < ChallengerStaticValues.remediateEnergyCostPerSec * currScale / 60) {
-                        ToggleRemediate();
+                Debug(ChallengerStaticValues.remediateEnergyCostPerSec * currScale / 60);
+                if (currentEnergy < ChallengerStaticValues.remediateEnergyCostPerSec * currScale / 60) {
+                    ToggleRemediate();
                         
-                    } else {
-                        characterBody.healthComponent.Heal(currScale * healBase / 60, default(ProcChainMask));
-                    }
-                    
+                } else {
+                    characterBody.healthComponent.Heal(currScale * healBase / 60, default(ProcChainMask));
                 }
             }
             
         }
 
-        public static bool UseEnergy(float amount)
+        public void ToggleRemediate(float scale = 1f)
         {
-            
-            float cost = amount * efficiency;
-            if (debug)
-            {
-                Debug(cost);
-            }
-            if (currentEnergy < cost)
-            {
-                return false;
-            }
-            else 
-            {
-                currentEnergy -= cost;
-                return true;
-            }
-        }
-
-        public static bool CheckEnergy(float amount)
-        {
-            
-            
-            float cost = amount * efficiency;
-            if (debug)
-            {
-                Debug(cost);
-            }
-            if (currentEnergy < cost)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        public static void AddEnergyDrain(float amount) {
-            currentDrain += amount;
-        }
-
-        public static void RemoveEnergyDrain(float amount)
-        {
-            currentDrain -= amount;
-        }
-
-        public static void ToggleRemediate(float scale = 1f) {
-            
-            float drain = ChallengerStaticValues.remediateEnergyCostPerSec*scale;
+            float drain = ChallengerStaticValues.remediateEnergyCostPerSec * scale;
             if (remediate)
             {
                 characterBody.RemoveBuff(ChallengerBuffs.armorBuff);
-                currentDrain -= drain*currScale;
+                currentDrain -= drain * currScale;
                 characterBody.armor -= 300 * currScale;
                 remediate = false;
-            } else
+            }
+            else
             {
                 characterBody.AddBuff(ChallengerBuffs.armorBuff);
-                currentDrain += drain*scale;
+                currentDrain += drain * scale;
                 characterBody.armor += 300 * scale;
                 currScale = scale;
                 remediate = true;
             }
-        }
-
-        /*
-         *                                                    100
-         *  Energy Usage = Base Energy Usage * ---------------------------------
-         *                                    100 + (crit * efficiencyScalingRatio)
-         */
-        public float CalculateEnergyEfficiency() {
-            return 100 / (100 + ((characterBody.crit - characterBody.baseCrit) * efficiencyScalingRatio));
-        }
-        public float CalculateEnergyRecharge()
-        {
-            return baseRecharge + rechargeLevelScaling*(characterBody.level - 1) + (characterBody.attackSpeed * rechargeScalingRatio) - (currentDrain * efficiency);
-        }
-        public float CalculateMaxEnergy()
-        {
-            return baseEnergy + (characterBody.maxHealth * energyScalingRatio);
-        }
-
-        private static void Debug(float consumption) {
-            Chat.AddMessage("Current Energy: " + currentEnergy + ", Current Drain: " + currentDrain + ", Current Efficiency: " + efficiency + ", Energy Consumption: " + (consumption) + ", Current Recharge: " + currentRecharge);
         }
 
         public static void StartOverclock(BaseSkillState caller, GameObject gameObject)

@@ -13,7 +13,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         {
             base.OnEnter();
             ChallengerSystemsController.EndOverclock(this, gameObject);
-            ChallengerSystemsController.ToggleRemediate();
+            base.characterBody.GetComponent<ChallengerSystemsController>().ToggleRemediate();
         }
 
         public override void OnExit()
