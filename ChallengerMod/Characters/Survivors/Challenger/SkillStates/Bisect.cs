@@ -23,9 +23,7 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         
         private GameObject prefab = ChallengerAssets.slashProjectilePrefab;
 
-        //private ChallengerSystemsController energyController;
         private bool hasFired = false;
-        private bool canFire;
         private float baseDuration = 0.8f;
         private float baseDelay = 0.1f;
         private float duration;
@@ -36,14 +34,11 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         public override void OnEnter()
         {
             base.OnEnter();
-            canFire = base.characterBody.GetComponent<ChallengerSystemsController>().UseEnergy(ChallengerStaticValues.bisectEnergyCost);
             this.duration = this.baseDuration / this.attackSpeedStat;
-            if (canFire)
-            {
-                base.characterBody.SetAimTimer(2f);
-                this.animator = base.GetModelAnimator();
-                PlayCrossfade("Gesture, Override", "Slash" + (swingIndex == 1 ? 2 : 1), "Slash.playbackRate", duration, 0.1f * duration); 
-            } 
+            base.characterBody.SetAimTimer(2f);
+            this.animator = base.GetModelAnimator();
+            PlayCrossfade("Gesture, Override", "Slash" + (swingIndex == 1 ? 2 : 1), "Slash.playbackRate", duration, 0.1f * duration); 
+            
             
 
         }
@@ -56,24 +51,18 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if (canFire)
+            if (!this.hasFired && base.fixedAge >= this.duration * baseDelay)
             {
-                if (!this.hasFired && base.fixedAge >= this.duration * baseDelay)
-                {
-                    //Util.PlayAttackSpeedSound(this.attackSoundString, base.gameObject, this.attackSoundPitch);
-                    this.FireSlash();
-                    this.hasFired = true;
-                }
-                if (base.isAuthority && base.fixedAge >= this.duration)
-                {
-                    this.outer.SetNextStateToMain();
-                }
-                
-            } else
-            {
-                outer.SetNextStateToMain();
-                return;
+                //Util.PlayAttackSpeedSound(this.attackSoundString, base.gameObject, this.attackSoundPitch);
+                this.FireSlash();
+                this.hasFired = true;
             }
+            if (base.isAuthority && base.fixedAge >= this.duration)
+            {
+                this.outer.SetNextStateToMain();
+            }
+                
+            
 
             
         }

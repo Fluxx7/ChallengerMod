@@ -32,7 +32,7 @@ namespace ChallengerMod.Modules.EnergySystem
             GetEnergyController(skillSlot).UseEnergy(flatEnergyCost);
         }
 
-        private static EnergyController GetEnergyController([NotNull] GenericSkill skillSlot)
+        protected static EnergyController GetEnergyController([NotNull] GenericSkill skillSlot)
         {
             EnergyController energyController = ((EnergySkillDef.InstanceData)skillSlot.skillInstanceData).energyController;
             return (energyController != null) ? energyController : null;

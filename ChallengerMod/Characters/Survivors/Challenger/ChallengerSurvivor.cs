@@ -228,9 +228,8 @@ namespace ChallengerMod.Survivors.Challenger
         {
             Skills.CreateGenericSkillWithSkillFamily(bodyPrefab, SkillSlot.Primary);
 
-            //the primary skill is created using a constructor for a typical primary
-            //it is also a SteppedSkillDef. Custom Skilldefs are very useful for custom behaviors related to casting a skill. see ror2's different skilldefs for reference
-            SteppedSkillDef primarySkillDef1 = Skills.CreateSkillDef<SteppedSkillDef>(new SkillDefInfo
+            
+            SteppedEnergySkillDef primarySkillDef1 = EnergySkillDef.CreateEnergySkillDef<SteppedEnergySkillDef>(new SkillDefInfo
                 (){
                 skillName = "ChallengerBisect",
                 skillNameToken = CHALLENGER_PREFIX + "PRIMARY_BISECT_NAME",
@@ -258,8 +257,8 @@ namespace ChallengerMod.Survivors.Challenger
                 canceledFromSprinting = false,
                 cancelSprintingOnActivation = true,
                 forceSprintDuringState = false,
-            });
-            //custom Skilldefs can have additional fields that you can set manually
+            }, ChallengerStaticValues.bisectEnergyCost);
+            
             primarySkillDef1.stepCount = 3;
             primarySkillDef1.stepGraceDuration = 0.5f;
             Skills.AddPrimarySkills(bodyPrefab, primarySkillDef1);
@@ -313,7 +312,7 @@ namespace ChallengerMod.Survivors.Challenger
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Disect)),
                 activationStateMachineName = "Weapon",
-                interruptPriority = EntityStates.InterruptPriority.PrioritySkill,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
 
                 baseRechargeInterval = 3f,
                 baseMaxStock = 1,

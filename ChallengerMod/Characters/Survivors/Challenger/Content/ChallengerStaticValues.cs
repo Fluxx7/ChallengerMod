@@ -12,7 +12,7 @@ namespace ChallengerMod.Survivors.Challenger
 
         public const float igniteChargeMultiplier = 2.5f;
 
-        public const float overBisectDamageCoefficient = 50f;
+        public const float overBisectDamageCoefficient = 30f;
 
         public const int overDisectCooldown = 5;
 
