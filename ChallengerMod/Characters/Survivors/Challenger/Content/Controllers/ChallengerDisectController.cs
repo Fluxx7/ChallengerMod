@@ -39,7 +39,7 @@ namespace ChallengerMod.Survivors.Challenger
             if (timer >= interval)
             {
                 if (attackerBody != null && attackerObject != null)
-                { 
+                {
                     info = new DamageInfo()
                     {
                         attacker = attackerObject,
@@ -47,14 +47,16 @@ namespace ChallengerMod.Survivors.Challenger
                         damage = ChallengerStaticValues.disectDamageCoefficient * attackerBody.damage,
                         damageColorIndex = DamageColorIndex.WeakPoint,
                         force = Vector3.zero,
-                        procCoefficient = 0.5f,
+                        procCoefficient = 1f,
+                        procChainMask = default,
                         damageType = DamageType.Generic,
                         position = victimBody.corePosition,
                         dotIndex = DotController.DotIndex.None,
                         inflictor = attackerObject
                     };
 
-                    victimBody.healthComponent.TakeDamage(info);
+                    victimBody.healthComponent.TakeDamageProcess(info);
+                    GlobalEventManager.instance.OnHitEnemy(info, victimBody.gameObject);
                 }
                 stacks--;
                 timer = 0f;

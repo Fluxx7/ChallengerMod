@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 4284232352818509844}
   - component: {fileID: -3160917803337266067}
   - component: {fileID: -8818275066389278700}
-  - component: {fileID: 2514103681375690777}
-  - component: {fileID: 3215186348975153026}
   - component: {fileID: 2773156519370391719}
   m_Layer: 14
   m_Name: primaryBisectSlashGhost
@@ -72,38 +70,6 @@ MonoBehaviour:
   DoNotCullPool: 0
   optionalLights: []
   secondaryParticleSystem: []
---- !u!114 &2514103681375690777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1970734010304154053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 511512695, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effectIndex: -1
-  positionAtReferencedTransform: 0
-  parentToReferencedTransform: 0
-  noEffectData: 0
-  applyScale: 0
-  soundName: 
-  disregardZScale: 0
---- !u!114 &3215186348975153026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1970734010304154053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1897863358, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DontAllowProjectilesToPrematurelyPool: 0
 --- !u!23 &2773156519370391719
 MeshRenderer:
   m_ObjectHideFlags: 0

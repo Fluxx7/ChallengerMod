@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: -1895344032, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultTeam: -1
+  defaultTeam: 1
 --- !u!114 &6021066041369611523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,7 +294,7 @@ MonoBehaviour:
   lifetimeAfterImpact: 0
   lifetimeRandomOffset: 0
   minimumPhysicsStepsToKeepAliveAfterImpact: 0
-  transformSpace: 1
+  transformSpace: 0
   explodeOnLifeTimeExpiration: 0
 --- !u!1 &3549414384271637811
 GameObject:

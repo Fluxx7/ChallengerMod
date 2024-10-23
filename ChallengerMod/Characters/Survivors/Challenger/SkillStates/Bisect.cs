@@ -14,6 +14,8 @@ using UnityEngine.Internal;
 using UnityEngine.Scripting;
 using static UnityEngine.ParticleSystem.PlaybackState;
 using RoR2.Projectile;
+using System.Numerics;
+using TMPro;
 
 namespace ChallengerMod.Survivors.Challenger.SkillStates
 {
@@ -79,10 +81,24 @@ namespace ChallengerMod.Survivors.Challenger.SkillStates
                 return;
             } 
             Ray aimRay = base.GetAimRay();
+            UnityEngine.Quaternion rotation = Util.QuaternionSafeLookRotation(aimRay.direction);
+            switch (swingIndex)
+            {
+                case 0:
+                    UnityEngine.Quaternion temp = UnityEngine.Quaternion.Euler(0, 0, -35);
+                    rotation = rotation*temp;
+                    break;
+                case 1:
+                    UnityEngine.Quaternion temp2 = UnityEngine.Quaternion.Euler(0, 0, 35);
+                    rotation = rotation * temp2; 
+                    break;
+                default:
+                    break;
+            }
             if (base.isAuthority)
             {
                 float num = this.damageStat * this.damageCoef;
-                ProjectileManager.instance.FireProjectile(this.prefab, aimRay.origin, Util.QuaternionSafeLookRotation(aimRay.direction), base.gameObject, num, this.force, RollCrit(), DamageColorIndex.Default, null, 250f);
+                ProjectileManager.instance.FireProjectile(this.prefab, aimRay.origin, rotation, base.gameObject, num, this.force, RollCrit(), DamageColorIndex.Default, null, 250f);
             }
         }
 

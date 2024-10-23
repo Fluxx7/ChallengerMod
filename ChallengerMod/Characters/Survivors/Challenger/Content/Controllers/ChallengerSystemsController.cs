@@ -37,7 +37,7 @@ namespace ChallengerMod.Survivors.Challenger
                     ToggleRemediate();
                         
                 } else {
-                    characterBody.healthComponent.Heal(currScale * healBase / 60, default(ProcChainMask));
+                    characterBody.healthComponent.Heal(currScale * healBase / 60, default(ProcChainMask), false);
                 }
             }
             

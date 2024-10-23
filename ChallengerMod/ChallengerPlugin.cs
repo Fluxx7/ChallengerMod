@@ -46,15 +46,15 @@ namespace ChallengerMod
         }
 
         void Hook() {
-            On.RoR2.CharacterBody.OnTakeDamageServer += CharacterBody_OnTakeDamageServer;
+            GlobalEventManager.onServerDamageDealt += GlobalEventManager_ServerDamageDealt;
         }
 
-        void CharacterBody_OnTakeDamageServer(On.RoR2.CharacterBody.orig_OnTakeDamageServer orig, CharacterBody self, DamageReport damageReport) {
-            orig(self, damageReport);
-            if (DamageAPI.HasModdedDamageType(damageReport.damageInfo, ChallengerAssets.disectDmgType))
+        private void GlobalEventManager_ServerDamageDealt(DamageReport damageReport)
+        {
+            if (DamageAPI.HasModdedDamageType(damageReport.damageInfo, ChallengerAssets.disectDmgType) && damageReport.victimBody != null)
             {
-                self.gameObject.AddComponent<ChallengerDisectController>().attackerBody = damageReport.attackerBody;
- 
+                damageReport.victimBody.gameObject.AddComponent<ChallengerDisectController>().attackerBody = damageReport.attackerBody;
+
             }
         }
     }

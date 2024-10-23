@@ -22,11 +22,11 @@ namespace ChallengerMod.Survivors.Challenger
 
             string desc = "Challenger is an aggressive survivor focused on extreme damage output<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine
              + "< ! > Running out of energy? Health increases the maximum amount, attack speed increases the recharge speed, and critical strike chance lowers the energy consumption of attacks" + Environment.NewLine + Environment.NewLine
-             + "< ! > Disect slashes more times the more current health you have compared to the enemy, so it works well on small or low health enemies. Ignite is better for tanky enemies, but it has a small area of effect so don't use it for crowds" + Environment.NewLine + Environment.NewLine
+             + "< ! > Disect slashes more times the more current health you have compared to the enemy, so it works well on small or low health enemies. Ignite is better for tanky enemies, but it has a small area of effect so it won't do much for crowds" + Environment.NewLine + Environment.NewLine
              + "< ! > Overclocked Disect creates a structure to attack everything in a radius around it. Hit the structure with Ignite to blow up the entire area!" + Environment.NewLine + Environment.NewLine
              + "< ! > Overclocked Bisect takes a while to use, so only use it when you aren't in immediate danger" + Environment.NewLine + Environment.NewLine;
 
-            string outro = "..and so he left, seeking for a stronger opponent.";
+            string outro = "..and so he left, seeking a stronger opponent.";
             string outroFailure = "..and so he vanished, forever a blank slate.";
 
             Language.Add(prefix + "NAME", "Challenger");
@@ -42,7 +42,7 @@ namespace ChallengerMod.Survivors.Challenger
 
             #region Passive
             Language.Add(prefix + "PASSIVE_NAME", "Battery");
-            Language.Add(prefix + "PASSIVE_DESCRIPTION", "Challenger's attacks consume energy, which recharges over time. <style=cIsDamage>Challenger's attacks cannot critically strike</style>");
+            Language.Add(prefix + "PASSIVE_DESCRIPTION", "Challenger's attacks consume energy, which recharges over time.");
             #endregion
 
             #region Primary
@@ -52,12 +52,12 @@ namespace ChallengerMod.Survivors.Challenger
 
             #region Secondary
             Language.Add(prefix + "SECONDARY_DISECT_NAME", "Disect");
-            Language.Add(prefix + "SECONDARY_DISECT_DESCRIPTION", Tokens.agilePrefix + $"Target a nearby enemy, slashing them repeatedly for <style=cIsDamage>{100f * ChallengerStaticValues.disectDamageCoefficient}% damage</style>.");
+            Language.Add(prefix + "SECONDARY_DISECT_DESCRIPTION", Tokens.agilePrefix + $"Target a nearby enemy, slashing them repeatedly for <style=cIsDamage>{100f * ChallengerStaticValues.disectDamageCoefficient}% damage</style>. <style=cIsDamage>This attack cannot critically strike</style>");
             #endregion
 
             #region Utility
             Language.Add(prefix + "UTILITY_IGNITE_NAME", "Incinerate");
-            Language.Add(prefix + "UTILITY_IGNITE_DESCRIPTION", Tokens.ignitePrefix + $"Charge and fire a bolt of flame, dealing <style=cIsDamage>{100f * ChallengerStaticValues.igniteBaseDamageCoefficient}% to {100f * ChallengerStaticValues.igniteBaseDamageCoefficient * ChallengerStaticValues.igniteChargeMultiplier}% damage</style> based off charge time");
+            Language.Add(prefix + "UTILITY_IGNITE_DESCRIPTION", Tokens.ignitePrefix + $"Charge and fire a bolt of flame, dealing <style=cIsDamage>{100f * ChallengerStaticValues.igniteBaseDamageCoefficient}% to {100f * ChallengerStaticValues.igniteBaseDamageCoefficient * ChallengerStaticValues.igniteChargeMultiplier}% damage</style> depending on charge time");
             #endregion
 
             #region Special

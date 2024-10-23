@@ -26,7 +26,7 @@ namespace ChallengerMod.Modules.EnergySystem
 
         public float rechargeScalingRatio = 5f;
 
-        public float rechargeLevelScaling = 1f;
+        public float rechargeLevelScaling = 0.5f;
 
         public float efficiencyScalingRatio = 3f;
 

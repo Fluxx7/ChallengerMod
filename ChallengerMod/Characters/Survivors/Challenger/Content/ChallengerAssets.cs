@@ -19,7 +19,7 @@ namespace ChallengerMod.Survivors.Challenger
         public static NetworkSoundEventDef swordHitSoundEvent;
 
         //projectiles
-        public static GameObject bombProjectilePrefab;
+        public static GameObject arrowProjectilePrefab;
         public static GameObject slashProjectilePrefab;
 
         private static AssetBundle _assetBundle;
@@ -72,38 +72,14 @@ namespace ChallengerMod.Survivors.Challenger
         #region projectiles
         private static void CreateProjectiles()
         {
-            CreateBombProjectile();
-            Content.AddProjectilePrefab(bombProjectilePrefab);
+            CreateArrowProjectile();
             slashProjectilePrefab = Asset.LoadAndAddProjectilePrefab(_assetBundle, "primaryBisectSlash");
             slashProjectilePrefab.AddComponent<BisectBehaviour>();
             slashProjectilePrefab.GetComponent<ProjectileController>().ghostPrefab.AddComponent<BisectGhostBehaviour>();
-            //bombProjectilePrefab = Asset.LoadAndAddProjectilePrefab(_assetBundle, "primaryBisectSlash");
         }
-        private static void CreateBombProjectile()
+        private static void CreateArrowProjectile()
         {
-            //highly recommend setting up projectiles in editor, but this is a quick and dirty way to prototype if you want
-            bombProjectilePrefab = Asset.CloneProjectilePrefab("CommandoGrenadeProjectile", "HenryBombProjectile");
-
-            //remove their ProjectileImpactExplosion component and start from default values
-            UnityEngine.Object.Destroy(bombProjectilePrefab.GetComponent<ProjectileImpactExplosion>());
-            ProjectileImpactExplosion bombImpactExplosion = bombProjectilePrefab.AddComponent<ProjectileImpactExplosion>();
-            
-            bombImpactExplosion.blastRadius = 16f;
-            bombImpactExplosion.blastDamageCoefficient = 1f;
-            bombImpactExplosion.falloffModel = BlastAttack.FalloffModel.None;
-            bombImpactExplosion.destroyOnEnemy = true;
-            bombImpactExplosion.lifetime = 12f;
-            bombImpactExplosion.impactEffect = bombExplosionEffect;
-            bombImpactExplosion.lifetimeExpiredSound = Content.CreateAndAddNetworkSoundEventDef("HenryBombExplosion");
-            bombImpactExplosion.timerAfterImpact = true;
-            bombImpactExplosion.lifetimeAfterImpact = 0f;
-
-            ProjectileController bombController = bombProjectilePrefab.GetComponent<ProjectileController>();
-
-            if (_assetBundle.LoadAsset<GameObject>("HenryBombGhost") != null)
-                bombController.ghostPrefab = _assetBundle.CreateProjectileGhostPrefab("HenryBombGhost");
-            
-            bombController.startSound = "";
+            arrowProjectilePrefab = Asset.LoadAndAddProjectilePrefab(_assetBundle, "utilityIgniteArrow");
         }
 
         

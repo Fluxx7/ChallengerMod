@@ -29,7 +29,7 @@ namespace ChallengerMod.Survivors.Challenger
         private void FixedUpdate()
         {
 
-            transform.localScale += new Vector3(scalar, scalar/3, scalar);
+            transform.localScale += new Vector3(scalar, 0, scalar);
         }
 
     }
