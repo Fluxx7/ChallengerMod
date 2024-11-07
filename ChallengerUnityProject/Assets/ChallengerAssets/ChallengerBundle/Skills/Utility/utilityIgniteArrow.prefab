@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 6021066041369611523}
   - component: {fileID: 18050120945675964}
   - component: {fileID: 630705548345277469}
-  - component: {fileID: 4029874189119853199}
   - component: {fileID: -8572872591632654446}
-  - component: {fileID: 7864506743270121114}
+  - component: {fileID: 7791318251779200671}
+  - component: {fileID: 4077701640212092377}
   m_Layer: 14
   m_Name: utilityIgniteArrow
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2080391322811781859}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: -1819008361, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifetime: 4
+  lifetime: 10
   lifetimeExpiredEffect: {fileID: 0}
   desiredForwardSpeed: 150
   updateAfterFiring: 0
@@ -192,14 +192,6 @@ MonoBehaviour:
   groupName: 
   hitBoxes:
   - {fileID: 8584419080119068247}
---- !u!33 &4029874189119853199
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2080391322811781859}
-  m_Mesh: {fileID: 4300000, guid: ea5dd4c0fc474c741b8e3f6608aca74f, type: 2}
 --- !u!114 &-8572872591632654446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   falloffModel: 1
-  blastRadius: 4
+  blastRadius: 10
   blastDamageCoefficient: 1
   blastProcCoefficient: 1
   blastAttackerFiltering: 0
@@ -241,7 +233,8 @@ MonoBehaviour:
   maxStacksFromAttacker: 4294967295
   calculateTotalDamage: 0
   totalDamageMultiplier: 0
-  impactEffect: {fileID: 0}
+  impactEffect: {fileID: 5462667972647009399, guid: 05b273758480af74a919e826c7b80a86,
+    type: 3}
   lifetimeExpiredSoundString: 
   lifetimeExpiredSound: {fileID: 0}
   offsetForLifetimeExpiredSound: 0
@@ -249,25 +242,33 @@ MonoBehaviour:
   destroyOnWorld: 1
   impactOnWorld: 1
   timerAfterImpact: 0
-  lifetime: 4
+  lifetime: 10
   lifetimeAfterImpact: 0
   lifetimeRandomOffset: 0
   minimumPhysicsStepsToKeepAliveAfterImpact: 0
   transformSpace: 0
   explodeOnLifeTimeExpiration: 0
---- !u!135 &7864506743270121114
-SphereCollider:
+--- !u!65 &7791318251779200671
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2080391322811781859}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_Material: {fileID: 13400000, guid: 3ab60c64de77d4e489b07d4532cada57, type: 2}
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: -3.0394719e-16, z: 0}
+  m_Size: {x: 1, y: 2.0368795, z: 1.145467}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &4077701640212092377
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080391322811781859}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &3549414384271637811
 GameObject:
   m_ObjectHideFlags: 0

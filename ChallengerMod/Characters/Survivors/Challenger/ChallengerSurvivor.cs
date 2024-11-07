@@ -269,7 +269,7 @@ namespace ChallengerMod.Survivors.Challenger
                 skillName = "ChallengerOverclockBisect",
                 skillNameToken = CHALLENGER_PREFIX + "PRIMARY_OVERCLOCK_BISECT_NAME",
                 skillDescriptionToken = CHALLENGER_PREFIX + "PRIMARY_OVERCLOCK_BISECT_DESCRIPTION",
-                skillIcon = assetBundle.LoadAsset<Sprite>("texPrimaryIcon"),
+                skillIcon = assetBundle.LoadAsset<Sprite>("texOverBisectIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.OverclockBisect)),
                 activationStateMachineName = "Weapon",
@@ -340,7 +340,7 @@ namespace ChallengerMod.Survivors.Challenger
                 skillName = "ChallengerOverclockDisect",
                 skillNameToken = CHALLENGER_PREFIX + "SECONDARY_OVERCLOCK_DISECT_NAME",
                 skillDescriptionToken = CHALLENGER_PREFIX + "SECONDARY_OVERCLOCK_DISECT_DESCRIPTION",
-                skillIcon = assetBundle.LoadAsset<Sprite>("texSecondaryIcon"),
+                skillIcon = assetBundle.LoadAsset<Sprite>("texOverDisectIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.OverclockDisect)),
                 activationStateMachineName = "Weapon",
@@ -380,7 +380,7 @@ namespace ChallengerMod.Survivors.Challenger
                 skillNameToken = CHALLENGER_PREFIX + "UTILITY_IGNITE_NAME",
                 skillDescriptionToken = CHALLENGER_PREFIX + "UTILITY_IGNITE_DESCRIPTION",
                 keywordTokens = new string[] { "KEYWORD_IGNITE" },
-                skillIcon = assetBundle.LoadAsset<Sprite>("texBazookaFireIcon"),
+                skillIcon = assetBundle.LoadAsset<Sprite>("texIgniteIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(Ignite)),
                 activationStateMachineName = "Weapon",
@@ -413,7 +413,7 @@ namespace ChallengerMod.Survivors.Challenger
                 skillNameToken = CHALLENGER_PREFIX + "UTILITY_REMEDIATE_NAME",
                 skillDescriptionToken = CHALLENGER_PREFIX + "UTILITY_REMEDIATE_DESCRIPTION",
                 keywordTokens = new string[] { "KEYWORD_AGILE" },
-                skillIcon = assetBundle.LoadAsset<Sprite>("texUtilityIcon"),
+                skillIcon = assetBundle.LoadAsset<Sprite>("texRemediateIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(Remediate)),
                 activationStateMachineName = "Repair Systems",
@@ -452,7 +452,7 @@ namespace ChallengerMod.Survivors.Challenger
                 skillNameToken = CHALLENGER_PREFIX + "SPECIAL_OVERCLOCK_NAME",
                 skillDescriptionToken = CHALLENGER_PREFIX + "SPECIAL_OVERCLOCK_DESCRIPTION",
                 keywordTokens = new string[] { "KEYWORD_AGILE" },
-                skillIcon = assetBundle.LoadAsset<Sprite>("texSpecialIcon"),
+                skillIcon = assetBundle.LoadAsset<Sprite>("texOverclockIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Overclock)),
                 activationStateMachineName = "Body2",
@@ -476,7 +476,7 @@ namespace ChallengerMod.Survivors.Challenger
                 skillNameToken = CHALLENGER_PREFIX + "SPECIAL_UNDERCLOCK_NAME",
                 skillDescriptionToken = CHALLENGER_PREFIX + "SPECIAL_UNDERCLOCK_DESCRIPTION",
                 keywordTokens = new string[] { "KEYWORD_AGILE" },
-                skillIcon = assetBundle.LoadAsset<Sprite>("texBazookaOutIcon"),
+                skillIcon = assetBundle.LoadAsset<Sprite>("texUnderclockIcon"),
 
                 activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Underclock)),
                 

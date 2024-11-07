@@ -47,7 +47,7 @@ namespace ChallengerMod.Survivors.Challenger
                         damage = ChallengerStaticValues.disectDamageCoefficient * attackerBody.damage,
                         damageColorIndex = DamageColorIndex.WeakPoint,
                         force = Vector3.zero,
-                        procCoefficient = 1f,
+                        procCoefficient = 0.5f,
                         procChainMask = default,
                         damageType = DamageType.Generic,
                         position = victimBody.corePosition,

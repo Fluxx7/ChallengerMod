@@ -17,9 +17,9 @@ GameObject:
   - component: {fileID: 18050120945675964}
   - component: {fileID: 630705548345277469}
   - component: {fileID: 7344905055768247774}
-  - component: {fileID: 2229439634690354500}
   - component: {fileID: 4029874189119853199}
-  - component: {fileID: -8572872591632654446}
+  - component: {fileID: 1700797012240527484}
+  - component: {fileID: 4091669430989354096}
   m_Layer: 14
   m_Name: primaryBisectSlash
   m_TagString: Untagged
@@ -219,20 +219,6 @@ MonoBehaviour:
   ScaleWithVelocity: 0
   ScaleVelocitySource: {fileID: 8097956072121444660}
   ScaleWithVelocityAxis: {x: 0, y: 0, z: 1}
---- !u!64 &2229439634690354500
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2080391322811781859}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4063507033363642321, guid: 3bdc9e3e3d56c4e4d87b32f982908ce8, type: 3}
 --- !u!33 &4029874189119853199
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -241,7 +227,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2080391322811781859}
   m_Mesh: {fileID: 4063507033363642321, guid: 3bdc9e3e3d56c4e4d87b32f982908ce8, type: 3}
---- !u!114 &-8572872591632654446
+--- !u!114 &1700797012240527484
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -250,52 +236,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 2080391322811781859}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -317677761, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+  m_Script: {fileID: 1952984350, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  falloffModel: 0
-  blastRadius: 0
-  blastDamageCoefficient: 0
-  blastProcCoefficient: 0
-  blastAttackerFiltering: 0
-  bonusBlastForce: {x: 0, y: 0, z: 0}
-  canRejectForce: 1
-  projectileHealthComponent: {fileID: 0}
-  explosionEffect: {fileID: 0}
-  explosionSoundString: 
-  fireChildren: 0
-  childrenProjectilePrefab: {fileID: 0}
-  childrenCount: 0
-  childrenDamageCoefficient: 0
-  minAngleOffset: {x: 0, y: 0, z: 0}
-  maxAngleOffset: {x: 0, y: 0, z: 0}
-  minRollDegrees: 0
-  rangeRollDegrees: 0
-  minPitchDegrees: 0
-  rangePitchDegrees: 0
-  useLocalSpaceForChildren: 0
-  applyDot: 0
-  dotIndex: -1
-  dotDuration: 0
-  dotDamageMultiplier: 0
-  applyMaxStacksFromAttacker: 0
-  maxStacksFromAttacker: 4294967295
-  calculateTotalDamage: 0
-  totalDamageMultiplier: 0
-  impactEffect: {fileID: 0}
-  lifetimeExpiredSoundString: 
-  lifetimeExpiredSound: {fileID: 0}
-  offsetForLifetimeExpiredSound: 0
-  destroyOnEnemy: 0
+  destroyWhenNotAlive: 1
   destroyOnWorld: 1
-  impactOnWorld: 1
-  timerAfterImpact: 0
-  lifetime: 1
-  lifetimeAfterImpact: 0
-  lifetimeRandomOffset: 0
-  minimumPhysicsStepsToKeepAliveAfterImpact: 0
-  transformSpace: 0
-  explodeOnLifeTimeExpiration: 0
+  impactEffect: {fileID: 6465991710137314544, guid: 3e1f2fb19a263c64daf36c5f2dba513c,
+    type: 3}
+  hitSoundString: 
+  enemyHitSoundString: 
+--- !u!65 &4091669430989354096
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080391322811781859}
+  m_Material: {fileID: 13400000, guid: 3ab60c64de77d4e489b07d4532cada57, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.62, y: 0.47, z: 0.07}
+  m_Center: {x: 0, y: 0.2, z: 0}
 --- !u!1 &3549414384271637811
 GameObject:
   m_ObjectHideFlags: 0
