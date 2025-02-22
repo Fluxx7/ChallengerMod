@@ -241,8 +241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyWhenNotAlive: 1
   destroyOnWorld: 1
-  impactEffect: {fileID: 6465991710137314544, guid: 3e1f2fb19a263c64daf36c5f2dba513c,
-    type: 3}
+  impactEffect: {fileID: 0}
   hitSoundString: 
   enemyHitSoundString: 
 --- !u!65 &4091669430989354096

@@ -35,7 +35,7 @@ namespace ChallengerMod.Modules.EnergySystem
         protected static EnergyController GetEnergyController([NotNull] GenericSkill skillSlot)
         {
             EnergyController energyController = ((EnergySkillDef.InstanceData)skillSlot.skillInstanceData).energyController;
-            return (energyController != null) ? energyController : null;
+            return energyController;
         }
 
         public class InstanceData : SkillDef.BaseSkillInstanceData
