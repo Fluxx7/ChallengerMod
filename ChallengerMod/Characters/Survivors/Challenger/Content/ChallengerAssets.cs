@@ -74,8 +74,8 @@ namespace ChallengerMod.Survivors.Challenger
         {
             CreateArrowProjectile();
             slashProjectilePrefab = Asset.LoadAndAddProjectilePrefab(_assetBundle, "primaryBisectSlash");
-            slashProjectilePrefab.AddComponent<BisectBehaviour>();
-            slashProjectilePrefab.GetComponent<ProjectileController>().ghostPrefab.AddComponent<BisectGhostBehaviour>();
+            slashProjectilePrefab.GetComponent<ChildLocator>().FindChildGameObject(0).AddComponent<BisectBehaviour>();
+            slashProjectilePrefab.GetComponent<ChildLocator>().FindChildGameObject(0).GetComponent<ProjectileController>().ghostPrefab.AddComponent<BisectGhostBehaviour>();
         }
         private static void CreateArrowProjectile()
         {
